@@ -1,7 +1,7 @@
 {
   "name": "@nortic/newsletter-subscription-vue",
   "type": "module",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Nortic newsletter subscription form for Vue",
   "main": "dist/newsletter-subscription-vue.js",
   "types": "dist/newsletter-subscription-vue.d.ts",
