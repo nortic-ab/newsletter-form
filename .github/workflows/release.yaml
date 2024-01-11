@@ -30,7 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm -r install
 
       - name: Build
         run: pnpm build
