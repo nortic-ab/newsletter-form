@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\"",
     "build": "tsx ./scripts/build.ts",
-    "clean": "rimraf packages/newsletter-subscription-js/dist",
+    "clean": "rimraf packages/*/dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp package.json packages/**/package.json"

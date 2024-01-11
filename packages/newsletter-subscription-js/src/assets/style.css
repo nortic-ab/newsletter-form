@@ -6,34 +6,7 @@
   border-radius: var(--nortic-form-border-radius, 8px);
   background-color: var(--nortic-form-background-color, #eee);
   color: var(--nortic-form-color, #000);
-
-  .n-newsletter-form__input {
-    border: var(--nortic-form-input-border, 1px solid #777);
-    border-radius: var(--nortic-form-input-border-radius, 4px);
-    box-sizing: var(--nortic-form-input-box-sizing, border-box);
-    background: var(--nortic-form-input-background, #fff);
-    color: var(--nortic-form-input-color, #000);
-    display: var(--nortic-form-input-display, block);
-    font-size: var(--nortic-form-input-font-size, 1rem);
-    font-weight: var(--nortic-form-input-font-weight, 400);
-    margin: var(--nortic-form-input-margin, 0);
-    padding: var(--nortic-form-input-padding, 4px 8px);
-    width: var(--nortic-form-input-width, 100%);
-
-    &::placeholder {
-      color: var(--nortic-form-input-placeholder-color, #ccc);
-    }
-  }
-
-  .n-newsletter-form__input-hint {
-    &.n-newsletter-form__input-hint--error {
-      color: var(--nortic-form-input-hint-error-color, red) !important;
-    }
-
-    font-size: var(--nortic-form-input-hint-font-size, 0.8rem);
-    font-weight: var(--nortic-form-input-hint-font-weight, 400);
-    margin: var(--nortic-form-input-hint-margin, 0 0 0 0);
-  }
+  text-align: var(--nortic-form-input-label-text-align, left);
 
   .n-newsletter-form__input-container {
     &.n-newsletter-form__input-container--hidden {
@@ -41,7 +14,40 @@
     }
 
     display: var(--nortic-form-input-container-display, block);
-    margin: var(--nortic-form-input-container-margin, 0 0 2px 0);
+    margin: var(--nortic-form-input-container-margin, 0 0 0 0);
+
+    .n-newsletter-form__input-label {
+      display: var(--nortic-form-input-label-display, block);
+      font-size: var(--nortic-form-input-label-font-size, 0.9rem);
+    }
+
+    .n-newsletter-form__input {
+      border: var(--nortic-form-input-border, 1px solid #777);
+      border-radius: var(--nortic-form-input-border-radius, 4px);
+      box-sizing: var(--nortic-form-input-box-sizing, border-box);
+      background: var(--nortic-form-input-background, #fff);
+      color: var(--nortic-form-input-color, #000);
+      display: var(--nortic-form-input-display, block);
+      font-size: var(--nortic-form-input-font-size, 1rem);
+      font-weight: var(--nortic-form-input-font-weight, 400);
+      margin: var(--nortic-form-input-margin, 0);
+      padding: var(--nortic-form-input-padding, 4px 8px);
+      width: var(--nortic-form-input-width, 100%);
+  
+      &::placeholder {
+        color: var(--nortic-form-input-placeholder-color, #ccc);
+      }
+    }
+
+    .n-newsletter-form__input-hint {
+      &.n-newsletter-form__input-hint--error {
+        color: var(--nortic-form-input-hint-error-color, red) !important;
+      }
+  
+      font-size: var(--nortic-form-input-hint-font-size, 0.8rem);
+      font-weight: var(--nortic-form-input-hint-font-weight, 400);
+      margin: var(--nortic-form-input-hint-margin, 0 0 0 0);
+    }
   }
 
   .n-newsletter-form__title {
@@ -51,13 +57,9 @@
   }
 
   .n-newsletter-form__description {
-    font-size: var(--nortic-form-description-font-size, 1rem);
+    font-size: var(--nortic-form-description-font-size, 0.9rem);
     font-weight: var(--nortic-form-description-font-weight, 400);
     margin: var(--nortic-form-description-margin, 0 0 10px 0);
-  }
-
-  .n-newsletter-form__input-label {
-    display: var(--nortic-form-input-label-display, block);
   }
 
   .n-newsletter-form__submit {
@@ -77,5 +79,22 @@
       background-color: var(--nortic-form-submit-hover-background-color, #000);
       color: var(--nortic-form-submit-hover-color, #fff);
     }
+  }
+
+  .n-newsletter-form__terms {
+    &.n-newsletter-form__terms--hidden {
+      display: none;
+    }
+
+    font-size: var(--nortic-form-terms-font-size, 0.8rem);
+    font-weight: var(--nortic-form-terms-font-weight, 400);
+    margin: var(--nortic-form-terms-margin, 0 0 4px 0);
+
+    a {
+      color: var(--nortic-form-terms-link-color, #000);
+      font-weight: var(--nortic-form-terms-link-font-weight, 700);
+      text-decoration: var(--nortic-form-terms-link-text-decoration, underline);
+    }
+
   }
 }

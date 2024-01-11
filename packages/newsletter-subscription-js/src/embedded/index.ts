@@ -9,7 +9,12 @@ interface InputTexts {
   hint?: string
 }
 
-interface NorticNewsletterOptions extends SubmitOptionsBase {
+export interface NorticNewsletterOptions extends SubmitOptionsBase {
+  onSuccess?: () => void
+  onError?: (error: Error) => void
+  onReset?: () => void
+  onUpdate?: () => void
+  onDestroy?: () => void
   showFirstNameInput?: boolean
   showLastNameInput?: boolean
   showPhoneInput?: boolean
@@ -21,7 +26,13 @@ interface NorticNewsletterOptions extends SubmitOptionsBase {
     firstNameInput?: InputTexts
     lastNameInput?: InputTexts
     phoneInput?: InputTexts
+    acceptTermsLabel?: string
   }
+}
+
+function linkToHTML(text: string) {
+  const regex = /\[([^\]]+)\]\(([^)]+)\)/g
+  return text.replace(regex, '<a href="$2" target="_blank">$1</a>')
 }
 
 export class EmbeddedSubscriptionForm {
@@ -45,12 +56,14 @@ export class EmbeddedSubscriptionForm {
   private static INPUT_HINT_CLASS_NAME = 'n-newsletter-form__input-hint'
   private static INPUT_HINT_ERROR_CLASS_NAME = 'n-newsletter-form__input-hint--error'
   private static SUBMIT_BUTTON_CLASS_NAME = 'n-newsletter-form__submit'
+  private static TERMS_CLASS_NAME = 'n-newsletter-form__terms'
+  private static TERMS_HIDDEN_CLASS_NAME = 'n-newsletter-form__terms--hidden'
   private static TITLE_CLASS_NAME = 'n-newsletter-form__title'
   private static DESCRIPTION_CLASS_NAME = 'n-newsletter-form__description'
   private static EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   public static submit(email: string, options: SubmitOptions) {
-    submitSubscription(email, options)
+    return submitSubscription(email, options)
   }
 
   constructor(el: string | HTMLElement, options: NorticNewsletterOptions) {
@@ -91,8 +104,9 @@ export class EmbeddedSubscriptionForm {
     this._phoneInput.placeholder = options.texts?.phoneInput?.placeholder ?? '+46 70 123 45 67'
     this._phoneLabel.textContent = options.texts?.phoneInput?.label ?? 'Phone'
     this._phoneHint.textContent = options.texts?.phoneInput?.hint ?? '\u00A0'
+    this._terms.innerHTML = linkToHTML(options.texts?.acceptTermsLabel ?? '')
 
-    if (options.showFirstNameInput) {
+    if (options.showFirstNameInput ?? true) {
       this._firstNameContainer.classList.remove(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME)
     }
     else {
@@ -100,7 +114,7 @@ export class EmbeddedSubscriptionForm {
       this._firstNameInput.value = ''
     }
 
-    if (options.showLastNameInput) {
+    if (options.showLastNameInput ?? true) {
       this._lastNameContainer.classList.remove(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME)
     }
     else {
@@ -116,6 +130,14 @@ export class EmbeddedSubscriptionForm {
       this._phoneInput.value = ''
     }
 
+    if (this._terms.innerHTML === '')
+      this._terms.classList.add(EmbeddedSubscriptionForm.TERMS_HIDDEN_CLASS_NAME)
+    else
+      this._terms.classList.remove(EmbeddedSubscriptionForm.TERMS_HIDDEN_CLASS_NAME)
+
+    if (options.onUpdate)
+      options.onUpdate()
+
     if (reset)
       this.reset()
   }
@@ -124,10 +146,16 @@ export class EmbeddedSubscriptionForm {
     this._email = ''
     this._isFormDirty = false
     this._setEmailValidationMessage('')
+
+    if (this._options.onReset)
+      this._options.onReset()
   }
 
   public destroy() {
     this._rootEl.removeChild(this._formWrapper)
+
+    if (this._options.onDestroy)
+      this._options.onDestroy()
   }
 
   private _createInput() {
@@ -155,6 +183,7 @@ export class EmbeddedSubscriptionForm {
 
   private _createForm() {
     const wrapper = document.createElement('form')
+    const terms = document.createElement('p')
     const submitButton = document.createElement('button')
     const title = document.createElement('h2')
     const description = document.createElement('p')
@@ -187,6 +216,7 @@ export class EmbeddedSubscriptionForm {
     lastNameContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.LAST_NAME_INPUT_CONTAINER_CLASS_NAME)
     phoneContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.PHONE_INPUT_CONTAINER_CLASS_NAME)
     phoneInput.type = 'tel'
+    terms.classList.add(EmbeddedSubscriptionForm.TERMS_CLASS_NAME)
 
     wrapper.addEventListener('submit', (e) => {
       this._onSubmit(e)
@@ -210,6 +240,7 @@ export class EmbeddedSubscriptionForm {
     wrapper.appendChild(firstNameContainer)
     wrapper.appendChild(lastNameContainer)
     wrapper.appendChild(phoneContainer)
+    wrapper.appendChild(terms)
     wrapper.appendChild(submitButton)
 
     return wrapper
@@ -231,7 +262,7 @@ export class EmbeddedSubscriptionForm {
   }
 
   private set _firstName(value: string | undefined) {
-    this._firstNameInput.value = value
+    this._firstNameInput.value = value ?? ''
   }
 
   private get _lastName(): string | undefined {
@@ -239,7 +270,7 @@ export class EmbeddedSubscriptionForm {
   }
 
   private set _lastName(value: string | undefined) {
-    this._lastNameInput.value = value
+    this._lastNameInput.value = value ?? ''
   }
 
   private get _phone(): string | undefined {
@@ -247,7 +278,7 @@ export class EmbeddedSubscriptionForm {
   }
 
   private set _phone(value: string | undefined) {
-    this._phoneInput.value = value
+    this._phoneInput.value = value ?? ''
   }
 
   private _setEmailValidationMessage(message?: string) {
@@ -265,7 +296,7 @@ export class EmbeddedSubscriptionForm {
     const isValid = EmbeddedSubscriptionForm.EMAIL_REGEX.test(this._email)
 
     if (!isValid)
-      this._setEmailValidationMessage(this._options.texts?.emailInput.validationError || 'Please enter a valid email address')
+      this._setEmailValidationMessage(this._options.texts?.emailInput?.validationError ?? 'Please enter a valid email address')
 
     else
       this._setEmailValidationMessage()
@@ -287,6 +318,12 @@ export class EmbeddedSubscriptionForm {
         firstName: this._firstName,
         lastName: this._lastName,
         phone: this._phone,
+      }).catch((e) => {
+        if (this._options.onError)
+          this._options.onError(e)
+      }).then(() => {
+        if (this._options.onSuccess)
+          this._options.onSuccess()
       })
     }
   }
@@ -460,5 +497,14 @@ export class EmbeddedSubscriptionForm {
       return phoneLabel
 
     throw new Error('Phone label not found')
+  }
+
+  private get _terms() {
+    const terms = this._formWrapper?.querySelector(`.${EmbeddedSubscriptionForm.TERMS_CLASS_NAME}`)
+
+    if (terms instanceof HTMLParagraphElement)
+      return terms
+
+    throw new Error('Terms not found')
   }
 }

@@ -9,9 +9,13 @@ export interface SubmitOptions extends SubmitOptionsBase {
   phone?: string
 }
 
-export function submitSubscription(email: string, options: SubmitOptions) {
+export async function submitSubscription(email: string, options: SubmitOptions) {
   // TODO: Implement
-  console.info(`Submitting ${email} with options ${options}`)
+  await Promise.resolve().then(() => {
+    console.info(`Submitting ${email} with options ${options}`)
+
+    return true
+  })
 }
 
 export default submitSubscription
