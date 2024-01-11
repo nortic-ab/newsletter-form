@@ -1,11 +1,11 @@
 {
   "name": "@nortic/newsletter-form",
+  "type": "module",
   "version": "0.0.0",
   "description": "",
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -14,18 +14,15 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "build": "tsx ./scripts/build.ts",
-    "clean": "rimraf packages/newsletter-subscription-js/dist",
+    "build": "tsup",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.2",
-    "@types/node": "^20.10.7",
-    "consola": "^3.2.3",
-    "eslint": "^8.56.0",
-    "rimraf": "^5.0.5",
-    "tsx": "^4.7.0",
-    "typescript": "^5.3.3"
+    "@swc/core": "^1.3.102",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.33",
+    "postcss-nested": "^6.0.1",
+    "tsup": "^8.0.1"
   }
 }

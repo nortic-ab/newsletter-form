@@ -12,6 +12,6 @@
       "declaration": true,
       "outDir": "dist"
   },
-  "include": ["package.json", "./src/**/*.ts"],
+  "include": ["package.json", "packages/newsletter-subscription-js/src/**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
