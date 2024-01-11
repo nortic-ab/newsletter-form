@@ -1,11 +1,11 @@
 {
   "name": "@nortic/newsletter-form",
-  "version": "0.0.0",
+  "type": "module",
+  "version": "0.0.1",
   "description": "",
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
@@ -17,11 +17,13 @@
     "build": "tsx ./scripts/build.ts",
     "clean": "rimraf packages/newsletter-subscription-js/dist",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "release": "bumpp package.json packages/**/package.json"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.2",
     "@types/node": "^20.10.7",
+    "bumpp": "^9.2.1",
     "consola": "^3.2.3",
     "eslint": "^8.56.0",
     "rimraf": "^5.0.5",
