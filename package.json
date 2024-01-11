@@ -1,7 +1,8 @@
 {
   "name": "@nortic/newsletter-form",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "private": true,
   "description": "",
   "author": "",
   "license": "ISC",
