@@ -1,10 +1,22 @@
 {
-  "name": "@nortic/newsletter-subscription-vue",
+  "name": "@nortic/newsletter-form-vue",
   "type": "module",
   "version": "0.0.22",
   "description": "Nortic newsletter subscription form for Vue",
-  "main": "dist/newsletter-subscription-vue.js",
-  "types": "dist/newsletter-subscription-vue.d.ts",
+  "license": "ISC",
+  "keywords": [],
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/newsletter-subscription-vue.js",
+      "require": "./dist/newsletter-subscription-vue.umd.jcs"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "main": "./dist/newsletter-subscription-vue.umd.jcs",
+  "module": "./dist/newsletter-subscription-vue.js",
+  "types": "./dist/types/index.d.ts",
+  "files": ["dist"],
   "scripts": {
     "dev": "vite",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
