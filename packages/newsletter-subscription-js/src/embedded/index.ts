@@ -27,6 +27,8 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
     lastNameInput?: InputTexts
     phoneInput?: InputTexts
     acceptTermsLabel?: string
+    successTitle?: string
+    successDescription?: string
   }
 }
 
@@ -60,6 +62,10 @@ export class EmbeddedSubscriptionForm {
   private static TERMS_HIDDEN_CLASS_NAME = 'n-newsletter-form__terms--hidden'
   private static TITLE_CLASS_NAME = 'n-newsletter-form__title'
   private static DESCRIPTION_CLASS_NAME = 'n-newsletter-form__description'
+  private static SUCCESS_WRAPPER_CLASS_NAME = 'n-newsletter-form__success-wrapper'
+  private static SUCCESS_WRAPPER_HIDDEN_CLASS_NAME = 'n-newsletter-form__success-wrapper--hidden'
+  private static SUCCESS_TITLE_CLASS_NAME = 'n-newsletter-form__success-title'
+  private static SUCCESS_DESCRIPTION_CLASS_NAME = 'n-newsletter-form__success-description'
   private static EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   public static submit(email: string, options: SubmitOptions) {
@@ -103,6 +109,8 @@ export class EmbeddedSubscriptionForm {
     this._lastNameHint.textContent = options.texts?.lastNameInput?.hint ?? '\u00A0'
     this._phoneInput.placeholder = options.texts?.phoneInput?.placeholder ?? '+46 70 123 45 67'
     this._phoneLabel.textContent = options.texts?.phoneInput?.label ?? 'Phone'
+    this._successTitle.textContent = options.texts?.successTitle ?? 'Thank you for subscribing!'
+    this._successDescription.textContent = options.texts?.successDescription ?? ''
     this._phoneHint.textContent = options.texts?.phoneInput?.hint ?? '\u00A0'
     this._terms.innerHTML = linkToHTML(options.texts?.acceptTermsLabel ?? '')
 
@@ -204,6 +212,9 @@ export class EmbeddedSubscriptionForm {
       container: phoneContainer,
       input: phoneInput,
     } = this._createInput()
+    const successWrapper = document.createElement('div')
+    const successTitle = document.createElement('h2')
+    const successDescription = document.createElement('p')
 
     wrapper.classList.add(EmbeddedSubscriptionForm.FORM_CLASS_NAME)
     title.classList.add(EmbeddedSubscriptionForm.TITLE_CLASS_NAME)
@@ -215,6 +226,9 @@ export class EmbeddedSubscriptionForm {
     firstNameContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.FIRST_NAME_INPUT_CONTAINER_CLASS_NAME)
     lastNameContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.LAST_NAME_INPUT_CONTAINER_CLASS_NAME)
     phoneContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.PHONE_INPUT_CONTAINER_CLASS_NAME)
+    successWrapper.classList.add(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_CLASS_NAME, EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
+    successTitle.classList.add(EmbeddedSubscriptionForm.SUCCESS_TITLE_CLASS_NAME)
+    successDescription.classList.add(EmbeddedSubscriptionForm.SUCCESS_DESCRIPTION_CLASS_NAME)
     phoneInput.type = 'tel'
     terms.classList.add(EmbeddedSubscriptionForm.TERMS_CLASS_NAME)
 
@@ -242,6 +256,9 @@ export class EmbeddedSubscriptionForm {
     wrapper.appendChild(phoneContainer)
     wrapper.appendChild(terms)
     wrapper.appendChild(submitButton)
+    successWrapper.appendChild(successTitle)
+    successWrapper.appendChild(successDescription)
+    wrapper.appendChild(successWrapper)
 
     return wrapper
   }
@@ -324,6 +341,8 @@ export class EmbeddedSubscriptionForm {
       }).then(() => {
         if (this._options.onSuccess)
           this._options.onSuccess()
+
+        this._successWrapper.classList.remove(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
       })
     }
   }
@@ -506,5 +525,32 @@ export class EmbeddedSubscriptionForm {
       return terms
 
     throw new Error('Terms not found')
+  }
+
+  private get _successWrapper() {
+    const successWrapper = this._formWrapper?.querySelector(`.${EmbeddedSubscriptionForm.SUCCESS_WRAPPER_CLASS_NAME}`)
+
+    if (successWrapper instanceof HTMLDivElement)
+      return successWrapper
+
+    throw new Error('Success wrapper not found')
+  }
+
+  private get _successTitle() {
+    const successTitle = this._successWrapper?.querySelector(`.${EmbeddedSubscriptionForm.SUCCESS_TITLE_CLASS_NAME}`)
+
+    if (successTitle instanceof HTMLHeadingElement)
+      return successTitle
+
+    throw new Error('Success title not found')
+  }
+
+  private get _successDescription() {
+    const successDescription = this._successWrapper?.querySelector(`.${EmbeddedSubscriptionForm.SUCCESS_DESCRIPTION_CLASS_NAME}`)
+
+    if (successDescription instanceof HTMLParagraphElement)
+      return successDescription
+
+    throw new Error('Success description not found')
   }
 }
