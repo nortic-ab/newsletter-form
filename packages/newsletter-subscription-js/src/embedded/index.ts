@@ -344,10 +344,12 @@ export class EmbeddedSubscriptionForm {
         if (this._options.onSuccess)
           this._options.onSuccess()
 
-        this._successWrapper.classList.remove(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
-
         window.requestAnimationFrame(() => {
-          this._successWrapper.style.removeProperty('opacity')
+          this._successWrapper.classList.remove(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
+
+          window.requestAnimationFrame(() => {
+            this._successWrapper.style.removeProperty('opacity')
+          })
         })
       })
     }
