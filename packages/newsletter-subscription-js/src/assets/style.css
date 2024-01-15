@@ -1,39 +1,4 @@
 .n-newsletter-form {
-  .n-newsletter-form__success-wrapper {
-    &.n-newsletter-form__success-wrapper--hidden {
-      display: none;
-      opacity: 0;
-    }
-
-    display: var(--nortic-form-success-wrapper-display, flex);
-    flex-direction: var(--nortic-form-success-wrapper-flex-direction, column);
-    align-items: var(--nortic-form-success-wrapper-align-items, center);
-    justify-content: var(--nortic-form-success-wrapper-justify-content, center);
-    margin: var(--nortic-form-success-wrapper-margin, 0 0 0 0);
-    padding: var(--nortic-form-success-wrapper-padding, 20px);
-    position: var(--nortic-form-success-wrapper-position, absolute);
-    top: var(--nortic-form-success-wrapper-top, 0);
-    left: var(--nortic-form-success-wrapper-left, 0);
-    width: var(--nortic-form-success-wrapper-width, 100%);
-    height: var(--nortic-form-success-wrapper-height, 100%);
-    text-align: var(--nortic-form-success-wrapper-text-align, center);
-    background-color: var(--nortic-form-success-wrapper-background-color, inherit);
-    opacity: 100;
-    transition: var(--nortic-form-success-wrapper-transition, opacity 0.5s ease-in-out);
-
-    .n-newsletter-form__success-title {
-      font-size: var(--nortic-form-success-title-font-size, 1.5rem);
-      font-weight: var(--nortic-form-success-title-font-weight, 700);
-      margin: var(--nortic-form-success-title-margin, 0 0 10px 0);
-    }
-
-    .n-newsletter-form__success-description {
-      font-size: var(--nortic-form-success-description-font-size, 0.9rem);
-      font-weight: var(--nortic-form-success-description-font-weight, 400);
-      margin: var(--nortic-form-success-description-margin, 0 0 10px 0);
-    }
-  }
-
   margin: var(--nortic-form-margin, 0);
   padding: var(--nortic-form-padding, 20px);
   display: var(--nortic-form-display, inline-block);
@@ -43,6 +8,7 @@
   color: var(--nortic-form-color, #000);
   text-align: var(--nortic-form-input-label-text-align, left);
   position: relative;
+  overflow: hidden;
 
   .n-newsletter-form__input-container {
     &.n-newsletter-form__input-container--hidden {
@@ -130,6 +96,40 @@
       color: var(--nortic-form-terms-link-color, #000);
       font-weight: var(--nortic-form-terms-link-font-weight, 700);
       text-decoration: var(--nortic-form-terms-link-text-decoration, underline);
+    }
+  }
+
+  .n-newsletter-form__success-wrapper {
+    &.n-newsletter-form__success-wrapper--hidden {
+      display: none;
+    }
+
+    display: var(--nortic-form-success-wrapper-display, flex);
+    flex-direction: var(--nortic-form-success-wrapper-flex-direction, column);
+    align-items: var(--nortic-form-success-wrapper-align-items, center);
+    justify-content: var(--nortic-form-success-wrapper-justify-content, center);
+    margin: var(--nortic-form-success-wrapper-margin, 0 0 0 0);
+    padding: var(--nortic-form-success-wrapper-padding, 20px);
+    position: var(--nortic-form-success-wrapper-position, absolute);
+    top: var(--nortic-form-success-wrapper-top, 0);
+    left: var(--nortic-form-success-wrapper-left, 0);
+    width: var(--nortic-form-success-wrapper-width, 100%);
+    height: var(--nortic-form-success-wrapper-height, 100%);
+    text-align: var(--nortic-form-success-wrapper-text-align, center);
+    background-color: var(--nortic-form-success-wrapper-background-color, inherit);
+    opacity: 100;
+    transition: var(--nortic-form-success-wrapper-transition, opacity 0.5s ease-in-out);
+
+    .n-newsletter-form__success-title {
+      font-size: var(--nortic-form-success-title-font-size, 1.5rem);
+      font-weight: var(--nortic-form-success-title-font-weight, 700);
+      margin: var(--nortic-form-success-title-margin, 0 0 10px 0);
+    }
+
+    .n-newsletter-form__success-description {
+      font-size: var(--nortic-form-success-description-font-size, 0.9rem);
+      font-weight: var(--nortic-form-success-description-font-weight, 400);
+      margin: var(--nortic-form-success-description-margin, 0 0 10px 0);
     }
   }
 }
