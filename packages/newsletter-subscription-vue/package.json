@@ -8,11 +8,12 @@
   "exports": {
     ".": {
       "types": "./dist/types/index.d.ts",
-      "import": "./dist/newsletter-subscription-vue.js"
+      "import": "./dist/newsletter-subscription-vue.js",
+      "require": "./dist/newsletter-subscription-vue.umd.cjs"
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "main": "./dist/newsletter-subscription-vue.js",
+  "main": "./dist/newsletter-subscription-vue.umd.cjs",
   "module": "./dist/newsletter-subscription-vue.js",
   "types": "./dist/types/index.d.ts",
   "files": [
