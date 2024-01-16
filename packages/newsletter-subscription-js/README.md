@@ -40,14 +40,14 @@ function submit() {
 ```
 
 ### NPM package
-#### Install the package:
+#### Install the package
 ```bash
 npm i @nortic/newsletter-form
 # yarn add @nortic/newsletter-form
 # pnpm add @nortic/newsletter-form
 ```
 
-#### Usage:
+#### Usage
 ```js
 import { EmbeddedSubscriptionForm, submitSubscription } from '@nortic/newsletter-from'
 import '@nortic/newsletter-form/dist/index.css'
