@@ -1,6 +1,6 @@
 export interface SubmitOptionsBase {
-  newsletterId: number
-  organizerId: number
+  newsletterId: number | string
+  organizerId: number | string
 }
 
 export interface SubmitOptions extends SubmitOptionsBase {

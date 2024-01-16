@@ -13,7 +13,7 @@
     },
     "./dist/style.css": "./dist/style.css"
   },
-  "main": "./dist/newsletter-subscription-vue.umd.jcs",
+  "main": "./dist/newsletter-subscription-vue.js",
   "module": "./dist/newsletter-subscription-vue.js",
   "types": "./dist/types/index.d.ts",
   "files": [

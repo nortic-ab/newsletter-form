@@ -41,8 +41,8 @@ export class EmbeddedSubscriptionForm {
   private _id: string
   private _rootEl: Element
   private _formWrapper: HTMLFormElement
-  private _organizerId: number
-  private _newsletterId: number
+  private _organizerId: number | string
+  private _newsletterId: number | string
   private _isFormDirty: boolean = false
   private _options: NorticNewsletterOptions
 

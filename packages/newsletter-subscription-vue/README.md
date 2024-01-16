@@ -1,18 +1,67 @@
-# Vue 3 + TypeScript + Vite
+<p align="center">
+  <a target="_blank" href="https://b2b.nortic.se">
+  <img alt="nortic logo" src="https://github.com/nortic-ab/newsletter-form/assets/18286634/c2663966-535d-46f9-8a85-a3d4e4300b05" width="400">
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+  </a>
+</p>
+<br>
 
-## Recommended IDE Setup
+# Nortic Newsletter Subscription - Vue
+This is a Vue 3 wrapper for [Nortic Newsletter Subscription](https://github.com/nortic-ab/newsletter-form/tree/main/packages/newsletter-subscription-js)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+## Getting started
+### Install
+```bash
+npm install @nortic/newsletter-form-vue
+# yarn add @nortic/newsletter-form-vue
+# pnpm add @nortic/newsletter-form-vue
+```
 
-## Type Support For `.vue` Imports in TS
+## Usage
+### Component
+```vue
+<script setup lang="ts">
+import { SubmissionForm } from '@nortic/newsletter-form-vue';
+</script>
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+<template>
+   <SubmissionForm organizer-id="<your-organizer-id>" newsletter-id="<your-newsletter-id>" />
+</template>
+```
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+#### Props
+|Property              |Type                    |Required |
+|----------------------|------------------------|---------|
+|**organizerId**       |`string, number`        |Yes      |
+|**newsletterId**      |`string, number`        |Yes      |
+|**options**           |`object`                |No       |
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+> **_NOTE:_**  For more information about the available options, please refer to the Nortic Newsletter Form [readme](https://github.com/nortic-ab/newsletter-form/blob/main/packages/newsletter-subscription-js/README.md).
+
+#### Events
+|Event                 |Argument              |
+|----------------------|----------------------|
+|**success**           |N/A                   |
+|**error**             |Error                 |
+|**destroyed**         |N/A                   |
+|**reset**             |N/A                   |
+|**updated**           |N/A                   |
+
+### Composable
+```vue
+<script setup lang="ts">
+import { SubmissionForm } from '@nortic/newsletter-form-vue';
+
+const norticSubmissionForm = ref<HTMLElement>();
+
+useNewsletterSubscriptionForm(norticSubmissionForm, {
+   organizerId: '<your-organizer-id>',
+   newsletterId: '<your-newsletter-id>',
+   // options: A third, optional, argument can be passed
+})
+</script>
+
+<template>
+   <div ref="norticSubmissionForm" />
+</template>
+```

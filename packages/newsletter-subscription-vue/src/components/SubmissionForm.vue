@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { UnwrapRef, computed, ref } from 'vue';
+import { UnwrapRef, computed, onBeforeUnmount, ref } from 'vue';
 import { useNewsletterSubscriptionForm } from '..';
 import '@nortic/newsletter-form/dist/index.css'
 
 const props = withDefaults(defineProps<{
-  organizerId: number;
-  newsletterId: number;
+  organizerId: number | string;
+  newsletterId: number | string;
   options?: Omit<UnwrapRef<Parameters<typeof useNewsletterSubscriptionForm>[1]>, 'organizerId' | 'newsletterId'>;
 }>(), {
   options: () => ({}),
@@ -57,8 +57,12 @@ const resolvedOptions = computed(() => ({
 }));
 
 const {
-  
+  destroy
 } = useNewsletterSubscriptionForm(formEl, resolvedOptions)
+
+onBeforeUnmount(() => {
+  destroy();
+});
 </script>
 
 <template>
