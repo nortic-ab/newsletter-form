@@ -1,6 +1,7 @@
 import { EmbeddedSubscriptionForm, type NorticNewsletterOptions } from '@nortic/newsletter-form'
 import type { MaybeRef } from 'vue'
 import { ref, unref, watch } from 'vue'
+import '@nortic/newsletter-form/dist/index.css'
 
 export function useNewsletterSubscriptionForm(element: MaybeRef<HTMLElement | undefined | null>, options: MaybeRef<NorticNewsletterOptions>) {
   const formInstance = ref<EmbeddedSubscriptionForm>()

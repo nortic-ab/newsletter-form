@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { UnwrapRef, computed, onBeforeUnmount, ref } from 'vue';
 import { useNewsletterSubscriptionForm } from '..';
-import '@nortic/newsletter-form/dist/index.css'
 
 const props = withDefaults(defineProps<{
   organizerId: number | string;
