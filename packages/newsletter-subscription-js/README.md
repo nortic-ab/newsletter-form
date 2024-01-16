@@ -1,3 +1,11 @@
+<p align="center">
+  <a target="_blank" href="https://b2b.nortic.se">
+  <img alt="nortic logo" src="https://github.com/nortic-ab/newsletter-form/assets/18286634/c2663966-535d-46f9-8a85-a3d4e4300b05" width="400">
+
+  </a>
+</p>
+<br>
+
 # Nortic Newsletter Form :love_letter:
 This javascript module allows you to embed a subscription form for your newsletters created with [Nortic Insight](https://insight.nortic.se)!
 
