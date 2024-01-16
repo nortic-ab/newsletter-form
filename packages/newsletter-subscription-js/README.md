@@ -9,16 +9,16 @@ There are two ways to use this package, CDN or as a Node Package.
 ```xml
 <html>
   <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.css"></link>
   </head>
 </html>
 ```
 
 #### Initialize form
-```xml
-<div id="newsletter-form">
+```html
+<div id="newsletter-form" />
 
-<script src="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.global.js" />
+<script src="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.global.js"></script>
 
 <script>
 /* Embed our form on your web page */
