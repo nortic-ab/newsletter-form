@@ -1,4 +1,4 @@
-# Nortic Newsletter Form :love-letter:
+# Nortic Newsletter Form :love_letter:
 This javascript module allows you to embed a subscription form for your newsletters created with [Nortic Insight](https://insight.nortic.se)!
 
 ## Getting started
