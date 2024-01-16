@@ -24,9 +24,11 @@
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
     "preview": "vite preview"
   },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  },
   "dependencies": {
-    "@nortic/newsletter-form": "workspace:*",
-    "vue": "^3.3.11"
+    "@nortic/newsletter-form": "workspace:*"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
