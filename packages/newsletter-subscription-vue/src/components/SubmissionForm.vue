@@ -78,7 +78,6 @@ defineSlots<{
     reset: typeof reset;
     update: typeof update;
   };
-
 }>()
 </script>
 
