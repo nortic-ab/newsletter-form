@@ -1,10 +1,12 @@
 import { EmbeddedSubscriptionForm, type NorticNewsletterOptions } from '@nortic/newsletter-form'
 import type { MaybeRef } from 'vue'
-import { ref, unref, watch } from 'vue'
+import { computed, onBeforeUnmount, ref, unref, watch } from 'vue'
 import '@nortic/newsletter-form/dist/index.css'
 
 export function useNewsletterSubscriptionForm(element: MaybeRef<HTMLElement | undefined | null>, options: MaybeRef<NorticNewsletterOptions>) {
   const formInstance = ref<EmbeddedSubscriptionForm>()
+  const submitted = ref(false)
+  const error = ref<Error | null>(null)
 
   function update(opts: NorticNewsletterOptions = unref(options)) {
     if (formInstance.value)
@@ -23,9 +25,37 @@ export function useNewsletterSubscriptionForm(element: MaybeRef<HTMLElement | un
       formInstance.value.reset()
   }
 
+  function onSuccess() {
+    submitted.value = true
+    error.value = null
+
+    unref(options).onSuccess?.()
+  }
+
+  function onError(err: Error) {
+    submitted.value = false
+    error.value = err
+
+    unref(options).onError?.(err)
+  }
+
+  function onReset() {
+    submitted.value = false
+    error.value = null
+
+    unref(options).onReset?.()
+  }
+
+  const resolvedOptions = computed(() => ({
+    ...unref(options),
+    onSuccess,
+    onError,
+    onReset,
+  }))
+
   watch(() => unref(element), (el) => {
     if (el)
-      formInstance.value = new EmbeddedSubscriptionForm(el, unref(options))
+      formInstance.value = new EmbeddedSubscriptionForm(el, unref(resolvedOptions))
     else if (formInstance.value)
       destroy()
   }, {
@@ -37,7 +67,13 @@ export function useNewsletterSubscriptionForm(element: MaybeRef<HTMLElement | un
       formInstance.value.update(opts)
   })
 
+  onBeforeUnmount(() => {
+    destroy()
+  })
+
   return {
+    submitted,
+    error,
     update,
     destroy,
     reset,

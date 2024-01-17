@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { UnwrapRef, computed, onBeforeUnmount, ref } from 'vue';
+import { UnwrapRef, computed, ref } from 'vue';
 import { useNewsletterSubscriptionForm } from '..';
 
 const props = withDefaults(defineProps<{
@@ -56,14 +56,17 @@ const resolvedOptions = computed(() => ({
 }));
 
 const {
-  destroy
+  error,
+  submitted,
+  formInstance,
+  destroy,
+  reset,
+  update,
 } = useNewsletterSubscriptionForm(formEl, resolvedOptions)
-
-onBeforeUnmount(() => {
-  destroy();
-});
 </script>
 
 <template>
+  <slot name="before" v-bind="{ error, submitted, formInstance, formEl, destroy, reset, update, options: resolvedOptions }" />
   <div ref="formEl" />
+  <slot name="after" v-bind="{ error, submitted, formInstance, formEl, destroy, reset, update, options: resolvedOptions }" />
 </template>
