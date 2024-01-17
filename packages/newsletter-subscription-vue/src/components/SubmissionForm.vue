@@ -2,10 +2,12 @@
 import { UnwrapRef, computed, ref } from 'vue';
 import { useNewsletterSubscriptionForm } from '..';
 
+type ComponentOptions = UnwrapRef<Parameters<typeof useNewsletterSubscriptionForm>[1]>
+
 const props = withDefaults(defineProps<{
   organizerId: number | string;
   newsletterId: number | string;
-  options?: Omit<UnwrapRef<Parameters<typeof useNewsletterSubscriptionForm>[1]>, 'organizerId' | 'newsletterId'>;
+  options?: Omit<ComponentOptions, 'organizerId' | 'newsletterId'>;
 }>(), {
   options: () => ({}),
 });

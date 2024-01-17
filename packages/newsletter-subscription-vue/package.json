@@ -1,10 +1,22 @@
 {
   "name": "@nortic/newsletter-form-vue",
   "type": "module",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "Nortic newsletter subscription form for Vue",
-  "license": "ISC",
-  "keywords": [],
+  "license": "MIT",
+  "homepage": "https://b2b.nortic.se",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nortic-ab/newsletter-form.git",
+    "directory": "packages/newsletter-subscription-vue"
+  },
+  "bugs": {
+    "url": "https://github.com/nortic-ab/newsletter-form/issues"
+  },
+  "keywords": [
+    "nortic",
+    "vue"
+  ],
   "exports": {
     ".": {
       "types": "./dist/types/newsletter-subscription-vue/src/index.d.ts",

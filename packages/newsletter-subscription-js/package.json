@@ -1,11 +1,22 @@
 {
   "name": "@nortic/newsletter-form",
   "type": "module",
-  "version": "0.0.39",
+  "version": "0.0.40",
   "description": "",
   "author": "",
-  "license": "ISC",
-  "keywords": [],
+  "license": "MIT",
+  "homepage": "https://b2b.nortic.se",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nortic-ab/newsletter-form.git",
+    "directory": "packages/newsletter-subscription-js"
+  },
+  "bugs": {
+    "url": "https://github.com/nortic-ab/newsletter-form/issues"
+  },
+  "keywords": [
+    "nortic"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

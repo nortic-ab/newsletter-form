@@ -2,13 +2,12 @@
   "compilerOptions": {
     "target": "ESNext",
     "jsx": "preserve",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "baseUrl": ".",
     "module": "ESNext",
     "moduleResolution": "node",
     "paths": {
       "@nortic/newsletter-form": ["./packages/newsletter-form-js/src/index.ts"],
+      "@nortic/newsletter-form/*": ["./packages/newsletter-form-js/src/*"],
       "@nortic/newsletter-form-vue": ["./packages/newsletter-form-vue/src/index.ts"]
     },
     "resolveJsonModule": true,
