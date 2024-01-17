@@ -22,6 +22,7 @@ npm install @nortic/newsletter-form-vue
 ```vue
 <script setup lang="ts">
 import { SubmissionForm } from '@nortic/newsletter-form-vue';
+import '@nortic/newsletter-form-vue/dist/style.css';
 </script>
 
 <template>
@@ -51,6 +52,7 @@ import { SubmissionForm } from '@nortic/newsletter-form-vue';
 ```vue
 <script setup lang="ts">
 import { SubmissionForm } from '@nortic/newsletter-form-vue';
+import '@nortic/newsletter-form-vue/dist/style.css';
 
 const norticSubmissionForm = ref<HTMLElement>();
 
