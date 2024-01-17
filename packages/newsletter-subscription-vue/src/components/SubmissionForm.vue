@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { UnwrapRef, computed, ref } from 'vue';
-import { useNewsletterSubscriptionForm } from '..';
+import { NorticNewsletterOptions, useNewsletterSubscriptionForm } from '..';
 
 type ComponentOptions = UnwrapRef<Parameters<typeof useNewsletterSubscriptionForm>[1]>
 
@@ -66,8 +66,8 @@ const {
 } = useNewsletterSubscriptionForm(formEl, resolvedOptions)
 
 defineSlots<{
-  before(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: typeof update }): any
-  after(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: typeof update }): any
+  before(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: (opt?: NorticNewsletterOptions) => void }): any
+  after(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: (opt?: NorticNewsletterOptions) => void }): any
 }>()
 </script>
 
