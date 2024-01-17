@@ -15,6 +15,7 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
   onReset?: () => void
   onUpdate?: () => void
   onDestroy?: () => void
+  demo?: boolean
   showFirstNameInput?: boolean
   showLastNameInput?: boolean
   showPhoneInput?: boolean
@@ -321,6 +322,18 @@ export class EmbeddedSubscriptionForm {
     return isValid
   }
 
+  private _doRequest() {
+    return this._options.demo
+      ? Promise.resolve()
+      : EmbeddedSubscriptionForm.submit(this._email, {
+        organizerId: this._organizerId,
+        newsletterId: this._newsletterId,
+        firstName: this._firstName,
+        lastName: this._lastName,
+        phone: this._phone,
+      })
+  }
+
   private _onSubmit(e: Event) {
     e.preventDefault()
 
@@ -329,13 +342,7 @@ export class EmbeddedSubscriptionForm {
     const isValid = this._validateEmailInput()
 
     if (isValid) {
-      EmbeddedSubscriptionForm.submit(this._email, {
-        organizerId: this._organizerId,
-        newsletterId: this._newsletterId,
-        firstName: this._firstName,
-        lastName: this._lastName,
-        phone: this._phone,
-      }).catch((e) => {
+      this._doRequest().catch((e) => {
         if (this._options.onError)
           this._options.onError(e)
       }).then(() => {
