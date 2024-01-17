@@ -8,3 +8,7 @@ export const packagesDir = path.join(repoRoot, 'packages')
 
 export const norticNewsletterSubscriptionJSRoot = path.join(packagesDir, 'newsletter-subscription-js')
 export const subscriptionJSSrc = path.join(norticNewsletterSubscriptionJSRoot, 'src')
+
+export const norticNewsletterSubscriptionVueRoot = path.join(packagesDir, 'newsletter-subscription-vue')
+export const subscriptionVueSrc = path.join(norticNewsletterSubscriptionVueRoot, 'src')
+export const subscriptionVueComponentsDir = path.join(norticNewsletterSubscriptionVueRoot, 'src', 'components')
