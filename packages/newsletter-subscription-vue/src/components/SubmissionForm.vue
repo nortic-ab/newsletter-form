@@ -66,20 +66,8 @@ const {
 } = useNewsletterSubscriptionForm(formEl, resolvedOptions)
 
 defineSlots<{
-  before: {
-    error: typeof error;
-    submitted: typeof submitted;
-    destroy: typeof destroy;
-    reset: typeof reset;
-    update: typeof update;
-  };
-  after: {
-    error: typeof error;
-    submitted: typeof submitted;
-    destroy: typeof destroy;
-    reset: typeof reset;
-    update: typeof update;
-  };
+  before(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: typeof update }): any
+  after(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: typeof update }): any
 }>()
 </script>
 
