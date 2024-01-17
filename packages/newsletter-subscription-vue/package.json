@@ -7,7 +7,7 @@
   "keywords": [],
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
+      "types": "./dist/types/newsletter-subscription-vue/src/index.d.ts",
       "import": "./dist/newsletter-subscription-vue.js",
       "require": "./dist/newsletter-subscription-vue.umd.cjs"
     },
@@ -15,7 +15,7 @@
   },
   "main": "./dist/newsletter-subscription-vue.umd.cjs",
   "module": "./dist/newsletter-subscription-vue.js",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/types/newsletter-subscription-vue/src/index.d.ts",
   "files": [
     "dist"
   ],
@@ -34,6 +34,7 @@
     "@vitejs/plugin-vue": "^4.5.2",
     "typescript": "^5.2.2",
     "vite": "^5.0.8",
-    "vue-tsc": "^1.8.25"
+    "vue": "^3.3.0",
+    "vue-tsc": "^1.8.27"
   }
 }

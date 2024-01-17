@@ -58,7 +58,6 @@ const resolvedOptions = computed(() => ({
 const {
   error,
   submitted,
-  formInstance,
   destroy,
   reset,
   update,
@@ -68,28 +67,25 @@ defineSlots<{
   before: {
     error: typeof error;
     submitted: typeof submitted;
-    formInstance: typeof formInstance;
-    formEl: typeof formEl;
     destroy: typeof destroy;
     reset: typeof reset;
     update: typeof update;
-    options: typeof resolvedOptions;
   };
   after: {
     error: typeof error;
     submitted: typeof submitted;
-    formInstance: typeof formInstance;
-    formEl: typeof formEl;
     destroy: typeof destroy;
     reset: typeof reset;
     update: typeof update;
-    options: typeof resolvedOptions;
   };
+
 }>()
 </script>
 
 <template>
-  <slot name="before" v-bind="{ error, submitted, formInstance, formEl, destroy, reset, update, options: resolvedOptions }" />
-  <div ref="formEl" />
-  <slot name="after" v-bind="{ error, submitted, formInstance, formEl, destroy, reset, update, options: resolvedOptions }" />
+  <div>
+    <slot name="before" :error="error" :submitted="submitted" :destroy="destroy" :reset="reset" :update="update" />
+    <div ref="formEl" />
+    <slot name="after" :error="error" :submitted="submitted" :destroy="destroy" :reset="reset" :update="update" />
+  </div>
 </template>

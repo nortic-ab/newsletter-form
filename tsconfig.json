@@ -8,7 +8,8 @@
     "module": "ESNext",
     "moduleResolution": "node",
     "paths": {
-      "@nortic/newsletter-form": ["./packages/newsletter-form-js/src/index.ts"]
+      "@nortic/newsletter-form": ["./packages/newsletter-form-js/src/index.ts"],
+      "@nortic/newsletter-form-vue": ["./packages/newsletter-form-vue/src/index.ts"]
     },
     "resolveJsonModule": true,
     "types": ["node"],
@@ -24,7 +25,8 @@
     "skipLibCheck": true
   },
   "include": [
-    "./packages/*/src/**/*"
+    "./packages/*/src/**/*",
+    "./packages/newsletter-subscription-vue/shims.d.ts"
   ],
   "exclude": [
     "**/node_modules/**",

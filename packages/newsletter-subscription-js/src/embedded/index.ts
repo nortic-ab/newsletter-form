@@ -39,7 +39,6 @@ function linkToHTML(text: string) {
 }
 
 export class EmbeddedSubscriptionForm {
-  private _id: string
   private _rootEl: Element
   private _formWrapper: HTMLFormElement
   private _organizerId: number | string
@@ -79,7 +78,6 @@ export class EmbeddedSubscriptionForm {
     if (!_el)
       throw new Error(`Element ${el} not found`)
 
-    this._id = `nortic-form-${`${Math.floor(Math.random() * 1000000)}`.padStart(6, '0')}`
     this._options = options
     this._organizerId = options.organizerId
     this._newsletterId = options.newsletterId
