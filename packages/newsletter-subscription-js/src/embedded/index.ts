@@ -89,7 +89,7 @@ export class EmbeddedSubscriptionForm {
     this.update(options)
   }
 
-  public update(options: NorticNewsletterOptions, reset: boolean = true) {
+  public update(options: NorticNewsletterOptions) {
     this._options = options
     this._organizerId = options.organizerId
     this._newsletterId = options.newsletterId
@@ -144,18 +144,21 @@ export class EmbeddedSubscriptionForm {
 
     if (options.onUpdate)
       options.onUpdate()
-
-    if (reset)
-      this.reset()
   }
 
   public reset() {
     this._email = ''
+    this._firstName = ''
+    this._lastName = ''
+    this._phone = ''
     this._isFormDirty = false
     this._setEmailValidationMessage('')
+    this._successWrapper.classList.add(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
 
     if (this._options.onReset)
       this._options.onReset()
+
+    this.update(this._options)
   }
 
   public destroy() {
