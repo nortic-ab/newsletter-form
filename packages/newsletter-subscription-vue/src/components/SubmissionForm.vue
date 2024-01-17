@@ -63,6 +63,29 @@ const {
   reset,
   update,
 } = useNewsletterSubscriptionForm(formEl, resolvedOptions)
+
+defineSlots<{
+  before: {
+    error: typeof error;
+    submitted: typeof submitted;
+    formInstance: typeof formInstance;
+    formEl: typeof formEl;
+    destroy: typeof destroy;
+    reset: typeof reset;
+    update: typeof update;
+    options: typeof resolvedOptions;
+  };
+  after: {
+    error: typeof error;
+    submitted: typeof submitted;
+    formInstance: typeof formInstance;
+    formEl: typeof formEl;
+    destroy: typeof destroy;
+    reset: typeof reset;
+    update: typeof update;
+    options: typeof resolvedOptions;
+  };
+}>()
 </script>
 
 <template>
