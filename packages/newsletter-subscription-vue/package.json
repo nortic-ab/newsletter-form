@@ -34,7 +34,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && vue-tsc --declaration --emitDeclarationOnly",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "echo \"No test specified\""
   },
   "peerDependencies": {
     "vue": "^3.0.0"

@@ -113,8 +113,8 @@
     position: var(--nortic-form-success-wrapper-position, absolute);
     top: var(--nortic-form-success-wrapper-top, 0);
     left: var(--nortic-form-success-wrapper-left, 0);
-    width: var(--nortic-form-success-wrapper-width, 100%);
-    height: var(--nortic-form-success-wrapper-height, 100%);
+    bottom: var(--nortic-form-success-wrapper-bottom, 0);
+    right: var(--nortic-form-success-wrapper-right, 0);
     text-align: var(--nortic-form-success-wrapper-text-align, center);
     background-color: var(--nortic-form-success-wrapper-background-color, inherit);
     opacity: 1;

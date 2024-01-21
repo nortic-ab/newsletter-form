@@ -1,6 +1,5 @@
+import { deepMerge } from '@antfu/utils'
 import submitSubscription, { type SubmitOptions, type SubmitOptionsBase } from '../api'
-
-import '../assets/style.css'
 
 interface InputTexts {
   label?: string
@@ -89,29 +88,32 @@ export class EmbeddedSubscriptionForm {
     this.update(options)
   }
 
-  public update(options: NorticNewsletterOptions) {
-    this._options = options
-    this._organizerId = options.organizerId
-    this._newsletterId = options.newsletterId
+  public update(options: Partial<NorticNewsletterOptions>) {
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
+    this._options = deepMerge(this._options, options)
 
-    this._title.textContent = options.texts?.title ?? 'Subscribe to our newsletter'
-    this._description.textContent = options.texts?.description ?? 'Subscribe to our newsletter and get the latest news and updates'
-    this._submitButton.textContent = options.texts?.submit ?? 'Subscribe'
-    this._emailInput.placeholder = options.texts?.emailInput?.placeholder ?? 'john.doe@example.com'
-    this._emailLabel.textContent = options.texts?.emailInput?.label ?? 'Email *'
-    this._emailHint.textContent = options.texts?.emailInput?.hint ?? '\u00A0'
-    this._firstNameInput.placeholder = options.texts?.firstNameInput?.placeholder ?? 'John'
-    this._firstNameLabel.textContent = options.texts?.firstNameInput?.label ?? 'First name'
-    this._firstNameHint.textContent = options.texts?.firstNameInput?.hint ?? '\u00A0'
-    this._lastNameInput.placeholder = options.texts?.lastNameInput?.placeholder ?? 'Doe'
-    this._lastNameLabel.textContent = options.texts?.lastNameInput?.label ?? 'Last name'
-    this._lastNameHint.textContent = options.texts?.lastNameInput?.hint ?? '\u00A0'
-    this._phoneInput.placeholder = options.texts?.phoneInput?.placeholder ?? '+46 70 123 45 67'
-    this._phoneLabel.textContent = options.texts?.phoneInput?.label ?? 'Phone'
-    this._successTitle.textContent = options.texts?.successTitle ?? 'Thank you for subscribing!'
-    this._successDescription.textContent = options.texts?.successDescription ?? ''
-    this._phoneHint.textContent = options.texts?.phoneInput?.hint ?? '\u00A0'
-    this._terms.innerHTML = linkToHTML(options.texts?.acceptTermsLabel ?? '')
+    this._organizerId = this._options.organizerId
+    this._newsletterId = this._options.newsletterId
+
+    this._title.textContent = this._options.texts?.title ?? 'Subscribe to our newsletter'
+    this._description.textContent = this._options.texts?.description ?? 'Subscribe to our newsletter and get the latest news and updates'
+    this._submitButton.textContent = this._options.texts?.submit ?? 'Subscribe'
+    this._emailInput.placeholder = this._options.texts?.emailInput?.placeholder ?? 'john.doe@example.com'
+    this._emailLabel.textContent = this._options.texts?.emailInput?.label ?? 'Email *'
+    this._emailHint.textContent = this._options.texts?.emailInput?.hint ?? '\u00A0'
+    this._firstNameInput.placeholder = this._options.texts?.firstNameInput?.placeholder ?? 'John'
+    this._firstNameLabel.textContent = this._options.texts?.firstNameInput?.label ?? 'First name'
+    this._firstNameHint.textContent = this._options.texts?.firstNameInput?.hint ?? '\u00A0'
+    this._lastNameInput.placeholder = this._options.texts?.lastNameInput?.placeholder ?? 'Doe'
+    this._lastNameLabel.textContent = this._options.texts?.lastNameInput?.label ?? 'Last name'
+    this._lastNameHint.textContent = this._options.texts?.lastNameInput?.hint ?? '\u00A0'
+    this._phoneInput.placeholder = this._options.texts?.phoneInput?.placeholder ?? '+46 70 123 45 67'
+    this._phoneLabel.textContent = this._options.texts?.phoneInput?.label ?? 'Phone'
+    this._successTitle.textContent = this._options.texts?.successTitle ?? 'Thank you for subscribing!'
+    this._successDescription.textContent = this._options.texts?.successDescription ?? ''
+    this._phoneHint.textContent = this._options.texts?.phoneInput?.hint ?? '\u00A0'
+    this._terms.innerHTML = linkToHTML(this._options.texts?.acceptTermsLabel ?? '')
 
     if (options.showFirstNameInput ?? true) {
       this._firstNameContainer.classList.remove(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME)
@@ -142,8 +144,8 @@ export class EmbeddedSubscriptionForm {
     else
       this._terms.classList.remove(EmbeddedSubscriptionForm.TERMS_HIDDEN_CLASS_NAME)
 
-    if (options.onUpdate)
-      options.onUpdate()
+    if (this._options.onUpdate)
+      this._options.onUpdate()
   }
 
   public reset() {
@@ -224,6 +226,7 @@ export class EmbeddedSubscriptionForm {
     emailContainer.classList.add(EmbeddedSubscriptionForm.EMAIL_INPUT_CONTAINER_CLASS_NAME)
     emailInput.type = 'email'
     submitButton.classList.add(EmbeddedSubscriptionForm.SUBMIT_BUTTON_CLASS_NAME)
+    submitButton.type = 'submit'
     emailHint.classList.add(EmbeddedSubscriptionForm.INPUT_HINT_ERROR_CLASS_NAME)
     firstNameContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.FIRST_NAME_INPUT_CONTAINER_CLASS_NAME)
     lastNameContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.LAST_NAME_INPUT_CONTAINER_CLASS_NAME)

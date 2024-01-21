@@ -211,8 +211,8 @@ Available CSS Variables and default values:
 --nortic-form-success-wrapper-position: absolute;
 --nortic-form-success-wrapper-top: 0;
 --nortic-form-success-wrapper-left: 0;
---nortic-form-success-wrapper-width: 100%;
---nortic-form-success-wrapper-height: 100%;
+--nortic-form-success-wrapper-bottom: 0;
+--nortic-form-success-wrapper-right: 0;
 --nortic-form-success-wrapper-text-align: center;
 --nortic-form-success-wrapper-background-color: inherit;
 --nortic-form-success-wrapper-transition: opacity 0.5s ease-in-out;

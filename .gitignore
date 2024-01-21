@@ -13,3 +13,5 @@ logs
 
 # Misc
 .DS_Store
+
+**/tests-examples/*
