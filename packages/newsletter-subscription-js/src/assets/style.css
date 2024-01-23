@@ -138,5 +138,12 @@
   .n-newsletter-form_affiliation {
     font-size: 0.8em;
     margin: 1em 0 0 0;
+    text-align: right;
+
+    a {
+      color: #3746A4;
+      text-decoration: none;
+      font-weight: 700;
+    }
   }
 }
