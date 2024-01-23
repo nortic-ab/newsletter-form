@@ -8,7 +8,6 @@ test.describe('Subscription form', () => {
   test.beforeEach(async ({ page }) => {
     page.evaluate(() => {
       const instance = new window.EmbeddedSubscriptionForm('#newsletter-form', {
-        organizerId: '0',
         newsletterId: '0',
         demo: true,
       })

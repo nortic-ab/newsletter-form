@@ -1,16 +1,19 @@
 <script setup lang="ts">
-import { UnwrapRef, computed, ref } from 'vue';
-import { NorticNewsletterOptions, useNewsletterSubscriptionForm } from '..';
+import type { UnwrapRef } from 'vue'
+import { computed, ref } from 'vue'
+import type { NorticNewsletterOptions } from '..'
+import { useNewsletterSubscriptionForm } from '..'
 
 type ComponentOptions = UnwrapRef<Parameters<typeof useNewsletterSubscriptionForm>[1]>
 
+export type SubmissionFormOptions = Omit<ComponentOptions, 'newsletterId'>
+
 const props = withDefaults(defineProps<{
-  organizerId: number | string;
-  newsletterId: number | string;
-  options?: Omit<ComponentOptions, 'organizerId' | 'newsletterId'>;
+  newsletterId: number | string
+  options?: SubmissionFormOptions
 }>(), {
   options: () => ({}),
-});
+})
 const emit = defineEmits<{
   success: []
   error: [error: Error]
@@ -19,35 +22,39 @@ const emit = defineEmits<{
   updated: []
 }>()
 
-const formEl = ref<HTMLDivElement | null>(null);
+defineSlots<{
+  before(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: (opt?: NorticNewsletterOptions) => void }): any
+  after(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: (opt?: NorticNewsletterOptions) => void }): any
+}>()
+
+const formEl = ref<HTMLDivElement | null>(null)
 
 function resolvedOnSuccess() {
-  emit('success');
-  props.options?.onSuccess?.();
+  emit('success')
+  props.options?.onSuccess?.()
 }
 
 function resolvedOnError(err: Error) {
-  emit('error', err);
-  props.options?.onError?.(err);
+  emit('error', err)
+  props.options?.onError?.(err)
 }
 
 function resolvedOnDestroy() {
-  emit('destroyed');
-  props.options?.onDestroy?.();
+  emit('destroyed')
+  props.options?.onDestroy?.()
 }
 
 function resolvedOnReset() {
-  emit('reset');
-  props.options?.onReset?.();
+  emit('reset')
+  props.options?.onReset?.()
 }
 
 function resolvedOnUpdate() {
-  emit('updated');
-  props.options?.onUpdate?.();
+  emit('updated')
+  props.options?.onUpdate?.()
 }
 
 const resolvedOptions = computed(() => ({
-  organizerId: props.organizerId,
   newsletterId: props.newsletterId,
   ...props.options,
   onSuccess: resolvedOnSuccess,
@@ -55,7 +62,7 @@ const resolvedOptions = computed(() => ({
   onDestroy: resolvedOnDestroy,
   onReset: resolvedOnReset,
   onUpdate: resolvedOnUpdate,
-}));
+}))
 
 const {
   error,
@@ -64,11 +71,6 @@ const {
   reset,
   update,
 } = useNewsletterSubscriptionForm(formEl, resolvedOptions)
-
-defineSlots<{
-  before(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: (opt?: NorticNewsletterOptions) => void }): any
-  after(props: { error: UnwrapRef<typeof error>, submitted: UnwrapRef<typeof submitted>, destroy: typeof destroy, reset: typeof reset, update: (opt?: NorticNewsletterOptions) => void }): any
-}>()
 </script>
 
 <template>

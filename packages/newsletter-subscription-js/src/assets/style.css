@@ -49,6 +49,7 @@
       font-size: var(--nortic-form-input-hint-font-size, 0.8rem);
       font-weight: var(--nortic-form-input-hint-font-weight, 400);
       margin: var(--nortic-form-input-hint-margin, 0 0 0 0);
+      color: var(--nortic-form-input-hint-color, #555);
     }
   }
 
@@ -62,6 +63,7 @@
     font-size: var(--nortic-form-description-font-size, 0.9rem);
     font-weight: var(--nortic-form-description-font-weight, 400);
     margin: var(--nortic-form-description-margin, 0 0 10px 0);
+    color: var(--nortic-form-description-color, #555);
   }
 
   .n-newsletter-form__submit {
@@ -131,5 +133,10 @@
       font-weight: var(--nortic-form-success-description-font-weight, 400);
       margin: var(--nortic-form-success-description-margin, 0 0 10px 0);
     }
+  }
+
+  .n-newsletter-form_affiliation {
+    font-size: 0.8em;
+    margin: 1em 0 0 0;
   }
 }

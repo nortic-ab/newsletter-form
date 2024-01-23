@@ -31,7 +31,6 @@ There are two ways to use this package, CDN or as a Node Package.
 <script>
 /* Embed our form on your web page */
 new NorticNewsletter.EmbeddedSubscriptionForm('#newsletter-form', {
-  organizerId: '<your-organizer-id-here>',
   newsletterId: '<your-newsletter-id-here>',
 });
 
@@ -62,7 +61,6 @@ import '@nortic/newsletter-form/dist/index.css'
 
 /* Embed our form on your web page */
 const formInstance = new EmbeddedSubscriptionForm('<element-query-selector>', {
-  organizerId: '<your-organizer-id-here>',
   newsletterId: '<your-newsletter-id-here>',
 })
 
@@ -81,7 +79,6 @@ function submit() {
 It is possible to customize the content of the form by passing an optional *options* argument to the constructor:
 ```js
 const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
-  organizerId: '<your-organizer-id-here>',
   newsletterId: '<your-newsletter-id-here>',
   options: {
     // Options go here
@@ -240,7 +237,6 @@ declare class EmbeddedSubscriptionForm {
 
 interface SubmitOptionsBase {
     newsletterId: number;
-    organizerId: number;
 }
 
 interface SubmitOptions extends SubmitOptionsBase {

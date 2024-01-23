@@ -23,6 +23,7 @@
     "dist/"
   ],
   "scripts": {
+    "demo:dev": "pnpm --filter demo dev",
     "build": "tsx ./scripts/build.ts",
     "clean": "rimraf packages/*/dist",
     "lint": "eslint .",
