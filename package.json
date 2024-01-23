@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.2",
+    "@playwright/test": "^1.41.0",
     "@types/node": "^20.10.7",
     "bumpp": "^9.2.1",
     "consola": "^3.2.3",
