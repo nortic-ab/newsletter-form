@@ -15,3 +15,8 @@ logs
 .DS_Store
 
 **/tests-examples/*
+
+**/test-results/
+**/playwright-report/
+**/blob-report/
+**/playwright/.cache/
