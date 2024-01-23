@@ -30,7 +30,10 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Install dependencies
-        run: pnpm -r install
+        run: pnpm -r install --frozen-lockfile
+
+      - name: Test
+        run: pnpm test
 
       - name: Build
         run: pnpm build
