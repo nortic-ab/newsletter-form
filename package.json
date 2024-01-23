@@ -23,12 +23,13 @@
     "dist/"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\"",
+    "demo:dev": "pnpm --filter demo dev",
     "build": "tsx ./scripts/build.ts",
     "clean": "rimraf packages/*/dist",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "release": "bumpp package.json packages/**/package.json"
+    "release": "bumpp package.json packages/**/package.json",
+    "test": "pnpm --filter=./packages/* test"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.2",

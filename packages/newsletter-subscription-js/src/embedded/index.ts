@@ -1,6 +1,5 @@
+import { deepMerge } from '@antfu/utils'
 import submitSubscription, { type SubmitOptions, type SubmitOptionsBase } from '../api'
-
-import '../assets/style.css'
 
 interface InputTexts {
   label?: string
@@ -41,7 +40,6 @@ function linkToHTML(text: string) {
 export class EmbeddedSubscriptionForm {
   private _rootEl: Element
   private _formWrapper: HTMLFormElement
-  private _organizerId: number | string
   private _newsletterId: number | string
   private _isFormDirty: boolean = false
   private _options: NorticNewsletterOptions
@@ -66,6 +64,7 @@ export class EmbeddedSubscriptionForm {
   private static SUCCESS_WRAPPER_HIDDEN_CLASS_NAME = 'n-newsletter-form__success-wrapper--hidden'
   private static SUCCESS_TITLE_CLASS_NAME = 'n-newsletter-form__success-title'
   private static SUCCESS_DESCRIPTION_CLASS_NAME = 'n-newsletter-form__success-description'
+  private static AFFILIATION_TAG = 'n-newsletter-form_affiliation'
   private static EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   public static submit(email: string, options: SubmitOptions) {
@@ -79,7 +78,6 @@ export class EmbeddedSubscriptionForm {
       throw new Error(`Element ${el} not found`)
 
     this._options = options
-    this._organizerId = options.organizerId
     this._newsletterId = options.newsletterId
     this._rootEl = _el
     this._formWrapper = this._createForm()
@@ -89,29 +87,31 @@ export class EmbeddedSubscriptionForm {
     this.update(options)
   }
 
-  public update(options: NorticNewsletterOptions) {
-    this._options = options
-    this._organizerId = options.organizerId
-    this._newsletterId = options.newsletterId
+  public update(options: Partial<NorticNewsletterOptions>) {
+    // eslint-disable-next-line ts/ban-ts-comment
+    // @ts-expect-error
+    this._options = deepMerge(this._options, options)
 
-    this._title.textContent = options.texts?.title ?? 'Subscribe to our newsletter'
-    this._description.textContent = options.texts?.description ?? 'Subscribe to our newsletter and get the latest news and updates'
-    this._submitButton.textContent = options.texts?.submit ?? 'Subscribe'
-    this._emailInput.placeholder = options.texts?.emailInput?.placeholder ?? 'john.doe@example.com'
-    this._emailLabel.textContent = options.texts?.emailInput?.label ?? 'Email *'
-    this._emailHint.textContent = options.texts?.emailInput?.hint ?? '\u00A0'
-    this._firstNameInput.placeholder = options.texts?.firstNameInput?.placeholder ?? 'John'
-    this._firstNameLabel.textContent = options.texts?.firstNameInput?.label ?? 'First name'
-    this._firstNameHint.textContent = options.texts?.firstNameInput?.hint ?? '\u00A0'
-    this._lastNameInput.placeholder = options.texts?.lastNameInput?.placeholder ?? 'Doe'
-    this._lastNameLabel.textContent = options.texts?.lastNameInput?.label ?? 'Last name'
-    this._lastNameHint.textContent = options.texts?.lastNameInput?.hint ?? '\u00A0'
-    this._phoneInput.placeholder = options.texts?.phoneInput?.placeholder ?? '+46 70 123 45 67'
-    this._phoneLabel.textContent = options.texts?.phoneInput?.label ?? 'Phone'
-    this._successTitle.textContent = options.texts?.successTitle ?? 'Thank you for subscribing!'
-    this._successDescription.textContent = options.texts?.successDescription ?? ''
-    this._phoneHint.textContent = options.texts?.phoneInput?.hint ?? '\u00A0'
-    this._terms.innerHTML = linkToHTML(options.texts?.acceptTermsLabel ?? '')
+    this._newsletterId = this._options.newsletterId
+
+    this._title.textContent = this._options.texts?.title ?? 'Subscribe to our newsletter'
+    this._description.textContent = this._options.texts?.description ?? 'Subscribe to our newsletter and get the latest news and updates'
+    this._submitButton.textContent = this._options.texts?.submit ?? 'Subscribe'
+    this._emailInput.placeholder = this._options.texts?.emailInput?.placeholder ?? 'john.doe@example.com'
+    this._emailLabel.textContent = this._options.texts?.emailInput?.label ?? 'Email *'
+    this._emailHint.textContent = this._options.texts?.emailInput?.hint ?? '\u00A0'
+    this._firstNameInput.placeholder = this._options.texts?.firstNameInput?.placeholder ?? 'John'
+    this._firstNameLabel.textContent = this._options.texts?.firstNameInput?.label ?? 'First name'
+    this._firstNameHint.textContent = this._options.texts?.firstNameInput?.hint ?? '\u00A0'
+    this._lastNameInput.placeholder = this._options.texts?.lastNameInput?.placeholder ?? 'Doe'
+    this._lastNameLabel.textContent = this._options.texts?.lastNameInput?.label ?? 'Last name'
+    this._lastNameHint.textContent = this._options.texts?.lastNameInput?.hint ?? '\u00A0'
+    this._phoneInput.placeholder = this._options.texts?.phoneInput?.placeholder ?? '+46 70 123 45 67'
+    this._phoneLabel.textContent = this._options.texts?.phoneInput?.label ?? 'Phone'
+    this._successTitle.textContent = this._options.texts?.successTitle ?? 'Thank you for subscribing!'
+    this._successDescription.textContent = this._options.texts?.successDescription ?? ''
+    this._phoneHint.textContent = this._options.texts?.phoneInput?.hint ?? '\u00A0'
+    this._terms.innerHTML = linkToHTML(this._options.texts?.acceptTermsLabel ?? '')
 
     if (options.showFirstNameInput ?? true) {
       this._firstNameContainer.classList.remove(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME)
@@ -142,8 +142,8 @@ export class EmbeddedSubscriptionForm {
     else
       this._terms.classList.remove(EmbeddedSubscriptionForm.TERMS_HIDDEN_CLASS_NAME)
 
-    if (options.onUpdate)
-      options.onUpdate()
+    if (this._options.onUpdate)
+      this._options.onUpdate()
   }
 
   public reset() {
@@ -200,7 +200,6 @@ export class EmbeddedSubscriptionForm {
     const {
       input: emailInput,
       container: emailContainer,
-      hint: emailHint,
     } = this._createInput()
     const {
       container: firstNameContainer,
@@ -217,6 +216,7 @@ export class EmbeddedSubscriptionForm {
     const successWrapper = document.createElement('div')
     const successTitle = document.createElement('h2')
     const successDescription = document.createElement('p')
+    const affiliationTag = document.createElement('p')
 
     wrapper.classList.add(EmbeddedSubscriptionForm.FORM_CLASS_NAME)
     title.classList.add(EmbeddedSubscriptionForm.TITLE_CLASS_NAME)
@@ -224,7 +224,7 @@ export class EmbeddedSubscriptionForm {
     emailContainer.classList.add(EmbeddedSubscriptionForm.EMAIL_INPUT_CONTAINER_CLASS_NAME)
     emailInput.type = 'email'
     submitButton.classList.add(EmbeddedSubscriptionForm.SUBMIT_BUTTON_CLASS_NAME)
-    emailHint.classList.add(EmbeddedSubscriptionForm.INPUT_HINT_ERROR_CLASS_NAME)
+    submitButton.type = 'submit'
     firstNameContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.FIRST_NAME_INPUT_CONTAINER_CLASS_NAME)
     lastNameContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.LAST_NAME_INPUT_CONTAINER_CLASS_NAME)
     phoneContainer.classList.add(EmbeddedSubscriptionForm.INPUT_CONTAINER_HIDDEN_CLASS_NAME, EmbeddedSubscriptionForm.PHONE_INPUT_CONTAINER_CLASS_NAME)
@@ -233,6 +233,8 @@ export class EmbeddedSubscriptionForm {
     successDescription.classList.add(EmbeddedSubscriptionForm.SUCCESS_DESCRIPTION_CLASS_NAME)
     phoneInput.type = 'tel'
     terms.classList.add(EmbeddedSubscriptionForm.TERMS_CLASS_NAME)
+    affiliationTag.classList.add(EmbeddedSubscriptionForm.AFFILIATION_TAG)
+    affiliationTag.innerHTML = 'Powered by <a href="https://nortic.se" target="_blank">Nortic</a>'
 
     wrapper.addEventListener('submit', (e) => {
       this._onSubmit(e)
@@ -261,6 +263,7 @@ export class EmbeddedSubscriptionForm {
     successWrapper.appendChild(successTitle)
     successWrapper.appendChild(successDescription)
     wrapper.appendChild(successWrapper)
+    wrapper.appendChild(affiliationTag)
 
     return wrapper
   }
@@ -302,11 +305,11 @@ export class EmbeddedSubscriptionForm {
 
   private _setEmailValidationMessage(message?: string) {
     if (message) {
-      this._emailHint.classList.add('n-newsletter-form__error--active')
+      this._emailHint.classList.add(EmbeddedSubscriptionForm.INPUT_HINT_ERROR_CLASS_NAME)
       this._emailHint.textContent = message
     }
     else {
-      this._emailHint.classList.remove('n-newsletter-form__error--active')
+      this._emailHint.classList.remove(EmbeddedSubscriptionForm.INPUT_HINT_ERROR_CLASS_NAME)
       this._emailHint.textContent = '\u00A0'
     }
   }
@@ -327,11 +330,10 @@ export class EmbeddedSubscriptionForm {
     return this._options.demo
       ? Promise.resolve()
       : EmbeddedSubscriptionForm.submit(this._email, {
-        organizerId: this._organizerId,
         newsletterId: this._newsletterId,
         firstName: this._firstName,
         lastName: this._lastName,
-        phone: this._phone,
+        phoneNumber: this._phone,
       })
   }
 

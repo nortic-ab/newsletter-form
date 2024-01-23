@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": ".",
+    "typeRoots": ["./node_modules/@types", "./nortic.d.ts"],
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "./node_modules/**",
+    "./dist/**",
+    "./src/main.ts"
+  ]
+}

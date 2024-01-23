@@ -31,7 +31,6 @@ There are two ways to use this package, CDN or as a Node Package.
 <script>
 /* Embed our form on your web page */
 new NorticNewsletter.EmbeddedSubscriptionForm('#newsletter-form', {
-  organizerId: '<your-organizer-id-here>',
   newsletterId: '<your-newsletter-id-here>',
 });
 
@@ -62,7 +61,6 @@ import '@nortic/newsletter-form/dist/index.css'
 
 /* Embed our form on your web page */
 const formInstance = new EmbeddedSubscriptionForm('<element-query-selector>', {
-  organizerId: '<your-organizer-id-here>',
   newsletterId: '<your-newsletter-id-here>',
 })
 
@@ -81,7 +79,6 @@ function submit() {
 It is possible to customize the content of the form by passing an optional *options* argument to the constructor:
 ```js
 const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
-  organizerId: '<your-organizer-id-here>',
   newsletterId: '<your-newsletter-id-here>',
   options: {
     // Options go here
@@ -211,8 +208,8 @@ Available CSS Variables and default values:
 --nortic-form-success-wrapper-position: absolute;
 --nortic-form-success-wrapper-top: 0;
 --nortic-form-success-wrapper-left: 0;
---nortic-form-success-wrapper-width: 100%;
---nortic-form-success-wrapper-height: 100%;
+--nortic-form-success-wrapper-bottom: 0;
+--nortic-form-success-wrapper-right: 0;
 --nortic-form-success-wrapper-text-align: center;
 --nortic-form-success-wrapper-background-color: inherit;
 --nortic-form-success-wrapper-transition: opacity 0.5s ease-in-out;
@@ -240,7 +237,6 @@ declare class EmbeddedSubscriptionForm {
 
 interface SubmitOptionsBase {
     newsletterId: number;
-    organizerId: number;
 }
 
 interface SubmitOptions extends SubmitOptionsBase {

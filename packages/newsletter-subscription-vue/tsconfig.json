@@ -9,21 +9,14 @@
 
     /* Bundler mode */
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowImportingTsExtensions": true,
 
     /* Linting */
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "declaration": true,
     "outDir": "dist/types",
     "sourceMap": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
-    "skipLibCheck": true
+    "isolatedModules": true
   },
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -6,6 +6,7 @@ export default defineConfig({
   target: 'es5',
   globalName: 'NorticNewsletter',
   dts: true, // Generate declaration file (.d.ts)
+  tsconfig: './tsconfig.build.json',
   sourcemap: true,
   clean: true,
 })
