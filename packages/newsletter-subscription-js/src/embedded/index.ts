@@ -1,4 +1,3 @@
-import { deepMerge } from '@antfu/utils'
 import submitSubscription, { type SubmitOptions, type SubmitOptionsBase } from '../api'
 
 interface InputTexts {
@@ -88,9 +87,11 @@ export class EmbeddedSubscriptionForm {
   }
 
   public update(options: Partial<NorticNewsletterOptions>) {
-    // eslint-disable-next-line ts/ban-ts-comment
-    // @ts-expect-error
-    this._options = deepMerge(this._options, options)
+    this._options = {
+      newsletterId: this._newsletterId,
+      demo: this._options.demo,
+      ...options,
+    }
 
     this._newsletterId = this._options.newsletterId
 
