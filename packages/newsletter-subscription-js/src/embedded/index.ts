@@ -95,21 +95,21 @@ export class EmbeddedSubscriptionForm {
 
     this._newsletterId = this._options.newsletterId
 
-    this._title.textContent = this._options.texts?.title ?? 'Subscribe to our newsletter'
-    this._description.textContent = this._options.texts?.description ?? 'Subscribe to our newsletter and get the latest news and updates'
-    this._submitButton.textContent = this._options.texts?.submit ?? 'Subscribe'
+    this._title.textContent = this._options.texts?.title ?? 'Prenumerera på vårt nyhetsbrev'
+    this._description.textContent = this._options.texts?.description ?? 'Prenumerera på vårt nyhetsbrev för att få information om kommande evenemang och erbjudanden.'
+    this._submitButton.textContent = this._options.texts?.submit ?? 'Prenumerera'
     this._emailInput.placeholder = this._options.texts?.emailInput?.placeholder ?? 'john.doe@example.com'
-    this._emailLabel.textContent = `${this._options.texts?.emailInput?.label ?? 'Email'} *`
+    this._emailLabel.textContent = `${this._options.texts?.emailInput?.label ?? 'E-post'} *`
     this._emailHint.textContent = this._options.texts?.emailInput?.hint ?? '\u00A0'
     this._firstNameInput.placeholder = this._options.texts?.firstNameInput?.placeholder ?? 'John'
-    this._firstNameLabel.textContent = this._options.texts?.firstNameInput?.label ?? 'First name'
+    this._firstNameLabel.textContent = this._options.texts?.firstNameInput?.label ?? 'Förnamn'
     this._firstNameHint.textContent = this._options.texts?.firstNameInput?.hint ?? '\u00A0'
     this._lastNameInput.placeholder = this._options.texts?.lastNameInput?.placeholder ?? 'Doe'
-    this._lastNameLabel.textContent = this._options.texts?.lastNameInput?.label ?? 'Last name'
+    this._lastNameLabel.textContent = this._options.texts?.lastNameInput?.label ?? 'Efternamn'
     this._lastNameHint.textContent = this._options.texts?.lastNameInput?.hint ?? '\u00A0'
     this._phoneInput.placeholder = this._options.texts?.phoneInput?.placeholder ?? '+46 70 123 45 67'
-    this._phoneLabel.textContent = this._options.texts?.phoneInput?.label ?? 'Phone'
-    this._successTitle.textContent = this._options.texts?.successTitle ?? 'Thank you for subscribing!'
+    this._phoneLabel.textContent = this._options.texts?.phoneInput?.label ?? 'Telefonnummer'
+    this._successTitle.textContent = this._options.texts?.successTitle ?? 'Tack för att du prenumererar!'
     this._successDescription.textContent = this._options.texts?.successDescription ?? ''
     this._phoneHint.textContent = this._options.texts?.phoneInput?.hint ?? '\u00A0'
     this._terms.innerHTML = linkToHTML(this._options.texts?.acceptTermsLabel ?? '')
@@ -319,7 +319,7 @@ export class EmbeddedSubscriptionForm {
     const isValid = EmbeddedSubscriptionForm.EMAIL_REGEX.test(this._email)
 
     if (!isValid)
-      this._setEmailValidationMessage(this._options.texts?.emailInput?.validationError ?? 'Please enter a valid email address')
+      this._setEmailValidationMessage(this._options.texts?.emailInput?.validationError ?? 'Vänligen ange en giltig e-postadress')
 
     else
       this._setEmailValidationMessage()
