@@ -17,7 +17,7 @@ test.describe('Subscription form', () => {
   })
 
   test('has title', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Subscribe to our newsletter' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Prenumerera på vårt nyhetsbrev' })).toBeVisible()
   })
 
   test('has email input', async ({ page }) => {
@@ -38,18 +38,18 @@ test.describe('Subscription form', () => {
 
   test('submitting form with invalid email shows error', async ({ page }) => {
     await page.getByPlaceholder('john.doe@example.com').fill('invalid-email@a')
-    await page.getByRole('button', { name: 'Subscribe' }).click()
-    await expect(page.getByText('Please enter a valid email address')).toBeVisible()
+    await page.getByRole('button', { name: 'Prenumerera' }).click()
+    await expect(page.getByText('Vänligen ange en giltig e-postadress')).toBeVisible()
   })
 
   test('submitting form with valid email shows success page', async ({ page }) => {
     await page.getByPlaceholder('john.doe@example.com').fill('john.doe@example.com')
-    await page.getByRole('button', { name: 'Subscribe' }).click()
-    await expect(page.getByText('Thank you for subscribing!')).toBeVisible()
+    await page.getByRole('button', { name: 'Prenumerera' }).click()
+    await expect(page.getByText('Tack för att du prenumererar!')).toBeVisible()
   })
 
   test('updating form data should reflect in form', async ({ page }) => {
-    await expect(page.getByRole('heading', { name: 'Subscribe to our newsletter' })).toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Prenumerera på vårt nyhetsbrev' })).toBeVisible()
 
     await page.evaluate(() => {
       window.norticFormInstance.update({
@@ -100,14 +100,14 @@ test.describe('Subscription form', () => {
       window.norticFormInstance.destroy()
     })
 
-    await expect(page.getByRole('heading', { name: 'Subscribe to our newsletter' })).not.toBeVisible()
+    await expect(page.getByRole('heading', { name: 'Prenumerera på vårt nyhetsbrev' })).not.toBeVisible()
   })
 
   test('error message should be red', async ({ page }) => {
     await page.getByPlaceholder('john.doe@example.com').fill('a@b')
 
-    await page.getByRole('button', { name: 'Subscribe' }).click()
+    await page.getByRole('button', { name: 'Prenumerera' }).click()
 
-    await expect(page.getByText('Please enter a valid email address')).toHaveCSS('color', 'rgb(255, 0, 0)')
+    await expect(page.getByText('Vänligen ange en giltig e-postadress')).toHaveCSS('color', 'rgb(255, 0, 0)')
   })
 })
