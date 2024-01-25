@@ -99,7 +99,7 @@ export class EmbeddedSubscriptionForm {
     this._description.textContent = this._options.texts?.description ?? 'Subscribe to our newsletter and get the latest news and updates'
     this._submitButton.textContent = this._options.texts?.submit ?? 'Subscribe'
     this._emailInput.placeholder = this._options.texts?.emailInput?.placeholder ?? 'john.doe@example.com'
-    this._emailLabel.textContent = this._options.texts?.emailInput?.label ?? 'Email *'
+    this._emailLabel.textContent = `${this._options.texts?.emailInput?.label ?? 'Email'} *`
     this._emailHint.textContent = this._options.texts?.emailInput?.hint ?? '\u00A0'
     this._firstNameInput.placeholder = this._options.texts?.firstNameInput?.placeholder ?? 'John'
     this._firstNameLabel.textContent = this._options.texts?.firstNameInput?.label ?? 'First name'
