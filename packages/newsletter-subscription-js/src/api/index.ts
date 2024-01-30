@@ -19,7 +19,7 @@ export async function submitSubscription(newsletterId: string, payload: SubmitPa
     ...options,
   }
 
-  const result = await fetch(`${resolvedOptions.baseUrl}/newsletter/${newsletterId}/add`, {
+  const result = await fetch(`${resolvedOptions.baseUrl}/newsletter/${newsletterId}/subscribe`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
