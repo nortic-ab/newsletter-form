@@ -9,7 +9,7 @@ type ComponentOptions = UnwrapRef<Parameters<typeof useNewsletterSubscriptionFor
 export type SubmissionFormOptions = Omit<ComponentOptions, 'newsletterId'>
 
 const props = withDefaults(defineProps<{
-  newsletterId: number | string
+  newsletterId: string
   options?: SubmissionFormOptions
 }>(), {
   options: () => ({}),

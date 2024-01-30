@@ -1,4 +1,4 @@
-import submitSubscription, { type SubmitOptions, type SubmitOptionsBase } from '../api'
+import submitSubscription, { type SubmitOptions, type SubmitOptionsBase, type SubmitPayload } from '../api'
 
 interface InputTexts {
   label?: string
@@ -29,6 +29,7 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
     successTitle?: string
     successDescription?: string
   }
+  requestOptions?: SubmitOptions
 }
 
 function linkToHTML(text: string) {
@@ -39,7 +40,7 @@ function linkToHTML(text: string) {
 export class EmbeddedSubscriptionForm {
   private _rootEl: Element
   private _formWrapper: HTMLFormElement
-  private _newsletterId: number | string
+  private _newsletterId: string
   private _isFormDirty: boolean = false
   private _options: NorticNewsletterOptions
 
@@ -66,8 +67,8 @@ export class EmbeddedSubscriptionForm {
   private static AFFILIATION_TAG = 'n-newsletter-form_affiliation'
   private static EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-  public static submit(email: string, options: SubmitOptions) {
-    return submitSubscription(email, options)
+  public static submit(id: string, payload: SubmitPayload, options?: SubmitOptions) {
+    return submitSubscription(id, payload, options)
   }
 
   constructor(el: string | HTMLElement, options: NorticNewsletterOptions) {
@@ -330,8 +331,8 @@ export class EmbeddedSubscriptionForm {
   private _doRequest() {
     return this._options.demo
       ? Promise.resolve()
-      : EmbeddedSubscriptionForm.submit(this._email, {
-        newsletterId: this._newsletterId,
+      : EmbeddedSubscriptionForm.submit(this._newsletterId, {
+        email: this._email,
         firstName: this._firstName,
         lastName: this._lastName,
         phoneNumber: this._phone,
@@ -346,10 +347,7 @@ export class EmbeddedSubscriptionForm {
     const isValid = this._validateEmailInput()
 
     if (isValid) {
-      this._doRequest().catch((e) => {
-        if (this._options.onError)
-          this._options.onError(e)
-      }).then(() => {
+      this._doRequest().then(() => {
         this._successWrapper.style.opacity = '0'
 
         if (this._options.onSuccess)
@@ -362,6 +360,9 @@ export class EmbeddedSubscriptionForm {
             this._successWrapper.style.removeProperty('opacity')
           })
         })
+      }).catch((e) => {
+        if (this._options.onError)
+          this._options.onError(e)
       })
     }
   }

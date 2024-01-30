@@ -1,24 +1,31 @@
 export interface SubmitOptionsBase {
-  newsletterId: number | string
+  newsletterId: string
 }
 
-export interface SubmitOptions extends SubmitOptionsBase {
+export interface SubmitPayload {
+  email: string
   firstName?: string
   lastName?: string
   phoneNumber?: string
 }
 
-export async function submitSubscription(email: string, options: SubmitOptions) {
-  const result = await fetch(`http://192.168.1.129:5000/api/insight/public/newsletter/${options.newsletterId}/add`, {
+export interface SubmitOptions {
+  baseUrl?: string
+}
+
+export async function submitSubscription(newsletterId: string, payload: SubmitPayload, options?: SubmitOptions) {
+  const resolvedOptions: Required<SubmitOptions> = {
+    baseUrl: 'https://insight-api.nortic.se',
+    ...options,
+  }
+
+  const result = await fetch(`${resolvedOptions.baseUrl}/newsletter/${newsletterId}/add`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     mode: 'cors',
-    body: JSON.stringify({
-      email,
-      ...options,
-    }),
+    body: JSON.stringify(payload),
   }).then((res) => {
     if (!res.ok)
       throw new Error(res.statusText)
