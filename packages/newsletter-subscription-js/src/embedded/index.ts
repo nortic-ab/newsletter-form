@@ -1,4 +1,4 @@
-import submitSubscription, { type SubmitOptions, type SubmitOptionsBase, type SubmitPayload } from '../api'
+import submitSubscription, { NewsletterSubscriptionError, type SubmitOptions, type SubmitOptionsBase, type SubmitPayload } from '../api'
 
 interface InputTexts {
   label?: string
@@ -17,6 +17,7 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
   showFirstNameInput?: boolean
   showLastNameInput?: boolean
   showPhoneInput?: boolean
+  hideSubmissionError?: boolean
   texts?: {
     title?: string
     description?: string
@@ -28,6 +29,7 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
     acceptTermsLabel?: string
     successTitle?: string
     successDescription?: string
+    genericErrorMessage?: string
   }
   requestOptions?: SubmitOptions
 }
@@ -339,28 +341,50 @@ export class EmbeddedSubscriptionForm {
       }, this._options.requestOptions)
   }
 
+  private _onSuccessfulSubmit() {
+    this._successWrapper.style.opacity = '0'
+
+    if (this._options.onSuccess)
+      this._options.onSuccess()
+
+    window.requestAnimationFrame(() => {
+      this._successWrapper.classList.remove(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
+
+      window.requestAnimationFrame(() => {
+        this._successWrapper.style.removeProperty('opacity')
+      })
+    })
+  }
+
   private _onSubmit(e: Event) {
     e.preventDefault()
+
+    const ERROR_CLASS = 'n-newsletter-form__error'
+
+    // Remove previous errors
+    const errors = this._formWrapper.querySelectorAll(`.${ERROR_CLASS}`)
+
+    errors.forEach((el) => {
+      el.parentNode?.removeChild(el)
+    })
 
     this._isFormDirty = true
 
     const isValid = this._validateEmailInput()
 
     if (isValid) {
-      this._doRequest().then(() => {
-        this._successWrapper.style.opacity = '0'
+      this._doRequest().then(this._onSuccessfulSubmit).catch((e: NewsletterSubscriptionError | Error) => {
+        if (e instanceof NewsletterSubscriptionError && e.errorCode === 8) {
+          this._onSuccessfulSubmit()
+        }
+        else if (!this._options.hideSubmissionError) {
+          const error = document.createElement('p')
+          error.classList.add(ERROR_CLASS)
+          error.textContent = this._options.texts?.genericErrorMessage ?? 'Ett fel uppstod. Vänligen försök igen senare.'
 
-        if (this._options.onSuccess)
-          this._options.onSuccess()
+          this._submitButton.parentNode?.insertBefore(error, this._submitButton.nextSibling)
+        }
 
-        window.requestAnimationFrame(() => {
-          this._successWrapper.classList.remove(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
-
-          window.requestAnimationFrame(() => {
-            this._successWrapper.style.removeProperty('opacity')
-          })
-        })
-      }).catch((e) => {
         if (this._options.onError)
           this._options.onError(e)
       })

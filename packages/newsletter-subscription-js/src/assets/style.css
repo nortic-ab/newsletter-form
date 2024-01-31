@@ -146,4 +146,9 @@
       font-weight: 700;
     }
   }
+
+  .n-newsletter-form__error {
+    font-size: var(--nortic-form-error-font-size, 0.9rem);
+    color: var(--nortic-form-error-color, red);
+  }
 }

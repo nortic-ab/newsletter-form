@@ -94,6 +94,7 @@ const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
 | **showFirstNameInput**               | Show the first name input field                                                                                                                 | true                                                              |
 | **showLastNameInput**                | Show the last name input field                                                                                                                  | true                                                             |
 | **showPhoneInput**                   | Show the phone number input field                                                                                                               | false                                                             |
+| **hideSubmissionError**              | Hide the generic error message                                                                                                                      | false |
 | **texts.title**                      | The title of the form                                                                                                                           | "Subscribe to our newsletter"                                     |
 | **texts.description**                | A sub title of the form                                                                                                                         | "Subscribe to our newsletter and get the latest news and updates" |
 | **texts.submit**                     | The submit button text                                                                                                                          | "Subscribe"                                                       |
@@ -108,6 +109,7 @@ const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
 | **texts.lastNameInput.placeholder**  | The placeholder of the last name input field                                                                                                    | "Doe"                                                             |
 | **texts.phoneInput.label**           | The label of the phone input field                                                                                                              | "Phone"                                                           |
 | **texts.phoneInput.placeholder**     | The placeholder of the phone input field                                                                                                        | "+46 70 123 45 67"                                                |
+| **texts.genericErrorMessage**        | The error message displayed when form submission fails                                                                                          | "Ett fel uppstod. Vänligen försök igen senare."                                           |
 
 #### Callbacks
 > **_NOTE:_**  All callbacks are optional.
@@ -221,6 +223,10 @@ Available CSS Variables and default values:
 --nortic-form-success-description-font-size: 0.9rem;
 --nortic-form-success-description-font-weight: 400;
 --nortic-form-success-description-margin: 0 0 10px 0;
+
+/* Generic error message */
+--nortic-form-error-font-size: 0.9rem;
+--nortic-form-error-color: red;
 ```
 
 ## Type definitions
