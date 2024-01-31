@@ -336,7 +336,7 @@ export class EmbeddedSubscriptionForm {
         firstName: this._firstName,
         lastName: this._lastName,
         phoneNumber: this._phone,
-      })
+      }, this._options.requestOptions)
   }
 
   private _onSubmit(e: Event) {
