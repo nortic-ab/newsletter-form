@@ -36,7 +36,6 @@ export async function submitSubscription(newsletterId: string, payload: SubmitPa
     headers: {
       'Content-Type': 'application/json',
     },
-    mode: 'cors',
     body: JSON.stringify(payload),
   }).then((res) => {
     if (!res.ok) {
