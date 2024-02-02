@@ -341,17 +341,17 @@ export class EmbeddedSubscriptionForm {
       }, this._options.requestOptions)
   }
 
-  private _onSuccessfulSubmit() {
-    this._successWrapper.style.opacity = '0'
+  private _onSuccessfulSubmit(that: EmbeddedSubscriptionForm) {
+    that._successWrapper.style.opacity = '0'
 
-    if (this._options.onSuccess)
-      this._options.onSuccess()
+    if (that._options.onSuccess)
+      that._options.onSuccess()
 
     window.requestAnimationFrame(() => {
-      this._successWrapper.classList.remove(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
+      that._successWrapper.classList.remove(EmbeddedSubscriptionForm.SUCCESS_WRAPPER_HIDDEN_CLASS_NAME)
 
       window.requestAnimationFrame(() => {
-        this._successWrapper.style.removeProperty('opacity')
+        that._successWrapper.style.removeProperty('opacity')
       })
     })
   }
@@ -373,9 +373,9 @@ export class EmbeddedSubscriptionForm {
     const isValid = this._validateEmailInput()
 
     if (isValid) {
-      this._doRequest().then(this._onSuccessfulSubmit).catch((e: NewsletterSubscriptionError | Error) => {
+      this._doRequest().then(() => this._onSuccessfulSubmit(this)).catch((e: NewsletterSubscriptionError | Error) => {
         if (e instanceof NewsletterSubscriptionError && e.errorCode === 8) {
-          this._onSuccessfulSubmit()
+          this._onSuccessfulSubmit(this)
         }
         else if (!this._options.hideSubmissionError) {
           const error = document.createElement('p')

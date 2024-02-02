@@ -12,6 +12,9 @@ const options: SubmissionFormOptions = {
       hint: 'Your email goes here...',
     },
   },
+  requestOptions: {
+    baseUrl: 'https://d9sggogbgohj6.cloudfront.net',
+  },
   onError: (e) => {
     console.error(e)
   },
@@ -20,7 +23,7 @@ const options: SubmissionFormOptions = {
 
 <template>
   <div>
-    <SubmissionForm newsletter-id="8823578f-af7d-4fc7-9752-07d00ffa0cdf" :options="options" />
+    <SubmissionForm newsletter-id="fc270648-9fd2-44ce-a97c-cc22c86986e0" :options="options" />
   </div>
 </template>
 
