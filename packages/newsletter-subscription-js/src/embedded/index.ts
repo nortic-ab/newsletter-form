@@ -31,11 +31,9 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
     successDescription?: string
     genericErrorMessage?: string
     tagsTitle?: string
+    tags?: Record<string, string>
   }
-  tags?: Array<{
-    value: string
-    label?: string
-  } | string>
+  tags?: Array<string>
   requestOptions?: SubmitOptions
 }
 
@@ -107,15 +105,14 @@ export class EmbeddedSubscriptionForm {
 
     tagEl.classList.add(EmbeddedSubscriptionForm.TAG_CLASS_NAME)
 
-    const tagValue = typeof tag === 'string' ? tag : tag.value
-    const tagLabel = (typeof tag === 'string' ? tag : tag.label) ?? tagValue
+    const tagLabel = this._options.texts?.tags?.[tag] ?? tag
 
     input.type = 'checkbox'
-    input.name = `tag-${tagValue}`
-    input.id = `tag-${tagValue}`
-    input.value = tagValue
+    input.name = `tag-${tag}`
+    input.id = `tag-${tag}`
+    input.value = tag
     label.textContent = tagLabel
-    label.htmlFor = `tag-${tagValue}`
+    label.htmlFor = `tag-${tag}`
 
     tagEl.appendChild(input)
     tagEl.appendChild(label)

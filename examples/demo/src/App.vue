@@ -3,7 +3,7 @@ import { SubmissionForm, type SubmissionFormOptions } from '@nortic/newsletter-f
 import '@nortic/newsletter-form-vue/dist/style.css'
 
 const options: SubmissionFormOptions = {
-  demo: false,
+  demo: true,
   showFirstNameInput: true,
   showLastNameInput: true,
   showPhoneInput: true,
@@ -11,10 +11,17 @@ const options: SubmissionFormOptions = {
     emailInput: {
       hint: 'Your email goes here...',
     },
+    tags: {
+      a: 'Tag A',
+      b: 'Tag B',
+    },
   },
-  requestOptions: {
-    baseUrl: 'https://d9sggogbgohj6.cloudfront.net',
-  },
+  tags: [
+    'a',
+    'b',
+    'c',
+    'd',
+  ],
   onError: (e) => {
     console.error(e)
   },
