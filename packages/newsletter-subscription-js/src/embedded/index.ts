@@ -30,7 +30,12 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
     successTitle?: string
     successDescription?: string
     genericErrorMessage?: string
+    tagsTitle?: string
   }
+  tags?: Array<{
+    value: string
+    label?: string
+  } | string>
   requestOptions?: SubmitOptions
 }
 
@@ -45,6 +50,7 @@ export class EmbeddedSubscriptionForm {
   private _newsletterId: string
   private _isFormDirty: boolean = false
   private _options: NorticNewsletterOptions
+  private _tags: NonNullable<NorticNewsletterOptions['tags']>
 
   private static FORM_CLASS_NAME = 'n-newsletter-form'
   private static INPUT_CONTAINER_CLASS_NAME = 'n-newsletter-form__input-container'
@@ -67,6 +73,10 @@ export class EmbeddedSubscriptionForm {
   private static SUCCESS_TITLE_CLASS_NAME = 'n-newsletter-form__success-title'
   private static SUCCESS_DESCRIPTION_CLASS_NAME = 'n-newsletter-form__success-description'
   private static AFFILIATION_TAG = 'n-newsletter-form_affiliation'
+  private static TAGS_WRAPPER_CLASS_NAME = 'n-newsletter-form__tags'
+  private static TAGS_HIDDEN_CLASS_NAME = 'n-newsletter-form__tags--hidden'
+  private static TAGS_TITLE_CLASS_NAME = 'n-newsletter-form__tags-title'
+  private static TAG_CLASS_NAME = 'n-newsletter-form__tag'
   private static EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
   public static submit(id: string, payload: SubmitPayload, options?: SubmitOptions) {
@@ -82,11 +92,35 @@ export class EmbeddedSubscriptionForm {
     this._options = options
     this._newsletterId = options.newsletterId
     this._rootEl = _el
+    this._tags = options.tags ?? []
     this._formWrapper = this._createForm()
 
     this._rootEl.appendChild(this._formWrapper)
 
     this.update(options)
+  }
+
+  private _createTag(tag: NonNullable<NorticNewsletterOptions['tags']>[number]) {
+    const tagEl = document.createElement('div')
+    const input = document.createElement('input')
+    const label = document.createElement('label')
+
+    tagEl.classList.add(EmbeddedSubscriptionForm.TAG_CLASS_NAME)
+
+    const tagValue = typeof tag === 'string' ? tag : tag.value
+    const tagLabel = (typeof tag === 'string' ? tag : tag.label) ?? tagValue
+
+    input.type = 'checkbox'
+    input.name = `tag-${tagValue}`
+    input.id = `tag-${tagValue}`
+    input.value = tagValue
+    label.textContent = tagLabel
+    label.htmlFor = `tag-${tagValue}`
+
+    tagEl.appendChild(input)
+    tagEl.appendChild(label)
+
+    return tagEl
   }
 
   public update(options: Partial<NorticNewsletterOptions>) {
@@ -148,6 +182,26 @@ export class EmbeddedSubscriptionForm {
 
     if (this._options.onUpdate)
       this._options.onUpdate()
+
+    this._tagsWrapper.innerHTML = ''
+    const tagElements = this._tags.map(tag => this._createTag(tag))
+
+    if (tagElements.length > 0) {
+      const title = document.createElement('h3')
+      title.classList.add(EmbeddedSubscriptionForm.TAGS_TITLE_CLASS_NAME)
+      title.textContent = this._options.texts?.tagsTitle ?? 'Välj dina intressen:'
+
+      this._tagsWrapper.appendChild(title)
+
+      tagElements.forEach((tagEl) => {
+        this._tagsWrapper.appendChild(tagEl)
+      })
+
+      this._tagsWrapper.classList.remove(EmbeddedSubscriptionForm.TAGS_HIDDEN_CLASS_NAME)
+    }
+    else {
+      this._tagsWrapper.classList.add(EmbeddedSubscriptionForm.TAGS_HIDDEN_CLASS_NAME)
+    }
   }
 
   public reset() {
@@ -221,6 +275,7 @@ export class EmbeddedSubscriptionForm {
     const successTitle = document.createElement('h2')
     const successDescription = document.createElement('p')
     const affiliationTag = document.createElement('p')
+    const tagsWrapper = document.createElement('div')
 
     wrapper.classList.add(EmbeddedSubscriptionForm.FORM_CLASS_NAME)
     title.classList.add(EmbeddedSubscriptionForm.TITLE_CLASS_NAME)
@@ -239,6 +294,7 @@ export class EmbeddedSubscriptionForm {
     terms.classList.add(EmbeddedSubscriptionForm.TERMS_CLASS_NAME)
     affiliationTag.classList.add(EmbeddedSubscriptionForm.AFFILIATION_TAG)
     affiliationTag.innerHTML = 'Powered by <a href="https://nortic.se" target="_blank">Nortic</a>'
+    tagsWrapper.classList.add(EmbeddedSubscriptionForm.TAGS_WRAPPER_CLASS_NAME, EmbeddedSubscriptionForm.TAGS_HIDDEN_CLASS_NAME)
 
     wrapper.addEventListener('submit', (e) => {
       this._onSubmit(e)
@@ -262,6 +318,7 @@ export class EmbeddedSubscriptionForm {
     wrapper.appendChild(firstNameContainer)
     wrapper.appendChild(lastNameContainer)
     wrapper.appendChild(phoneContainer)
+    wrapper.appendChild(tagsWrapper)
     wrapper.appendChild(terms)
     wrapper.appendChild(submitButton)
     successWrapper.appendChild(successTitle)
@@ -371,6 +428,27 @@ export class EmbeddedSubscriptionForm {
     this._isFormDirty = true
 
     const isValid = this._validateEmailInput()
+
+    const tags = this._tagsWrapper.querySelectorAll(`.${EmbeddedSubscriptionForm.TAG_CLASS_NAME} input`)
+
+    console.log(tags)
+
+    const tagValues = Array.from(tags).filter((tag): tag is HTMLInputElement => {
+      return tag instanceof HTMLInputElement
+    }).reduce((agg, el): Record<string, { value: boolean, type: 'Boolean' }> => {
+      const isSelected = el.checked
+      const value = el.value
+
+      return {
+        ...agg,
+        [value]: {
+          value: isSelected,
+          type: 'Boolean',
+        },
+      }
+    }, {})
+
+    console.log(JSON.stringify(tagValues, null, 2))
 
     if (isValid) {
       this._doRequest().then(() => this._onSuccessfulSubmit(this)).catch((e: NewsletterSubscriptionError | Error) => {
@@ -596,5 +674,14 @@ export class EmbeddedSubscriptionForm {
       return successDescription
 
     throw new Error('Success description not found')
+  }
+
+  private get _tagsWrapper() {
+    const tagsWrapper = this._formWrapper?.querySelector(`.${EmbeddedSubscriptionForm.TAGS_WRAPPER_CLASS_NAME}`)
+
+    if (tagsWrapper instanceof HTMLDivElement)
+      return tagsWrapper
+
+    throw new Error('Tags wrapper not found')
   }
 }

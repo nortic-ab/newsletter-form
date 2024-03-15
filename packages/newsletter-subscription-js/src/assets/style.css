@@ -151,4 +151,31 @@
     font-size: var(--nortic-form-error-font-size, 0.9rem);
     color: var(--nortic-form-error-color, red);
   }
+
+  .n-newsletter-form__tags {
+    &.n-newsletter-form__tags--hidden {
+      display: none;
+    }
+
+    margin: 0 0 1em 0;
+
+    .n-newsletter-form__tags-title {
+      font-size: 1rem;
+      margin: 0 0 0.5em 0;
+    }
+
+    .n-newsletter-form__tag {
+      label {
+        display: inline-block;
+        margin: 0 0 0 0.5em;
+      }
+    }
+  }
 }
+
+/*
+  private static TAGS_WRAPPER_CLASS_NAME = 'n-newsletter-form__tags'
+  private static TAGS_HIDDEN_CLASS_NAME = 'n-newsletter-form__tags--hidden'
+  private static TAGS_TITLE_CLASS_NAME = 'n-newsletter-form__tags-title'
+  private static TAG_CLASS_NAME = 'n-newsletter-form__tag'
+*/
