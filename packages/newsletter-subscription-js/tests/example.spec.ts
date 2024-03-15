@@ -7,10 +7,6 @@ test.beforeEach(async ({ page }) => {
 test.describe('Subscription form', () => {
   test.beforeEach(async ({ page }) => {
     page.evaluate(() => {
-      window.usingPlaywright = true
-    })
-
-    page.evaluate(() => {
       const instance = new window.EmbeddedSubscriptionForm('#newsletter-form', {
         newsletterId: '0',
         demo: true,
