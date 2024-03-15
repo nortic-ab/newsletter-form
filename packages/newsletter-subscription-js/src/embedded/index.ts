@@ -18,6 +18,7 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
   showLastNameInput?: boolean
   showPhoneInput?: boolean
   hideSubmissionError?: boolean
+  tags?: Array<string>
   texts?: {
     title?: string
     description?: string
@@ -33,7 +34,6 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
     tagsTitle?: string
     tags?: Record<string, string>
   }
-  tags?: Array<string>
   requestOptions?: SubmitOptions
 }
 
@@ -42,6 +42,9 @@ function linkToHTML(text: string) {
   return text.replace(regex, '<a href="$2" target="_blank">$1</a>')
 }
 
+/**
+ * A class representing an embedded subscription form
+ */
 export class EmbeddedSubscriptionForm {
   private _rootEl: Element
   private _formWrapper: HTMLFormElement
@@ -127,6 +130,8 @@ export class EmbeddedSubscriptionForm {
       ...options,
     }
 
+    this._tags = options.tags ?? []
+
     this._newsletterId = this._options.newsletterId
 
     this._title.textContent = this._options.texts?.title ?? 'Prenumerera på vårt nyhetsbrev'
@@ -183,7 +188,10 @@ export class EmbeddedSubscriptionForm {
     this._tagsWrapper.innerHTML = ''
     const tagElements = this._tags.map(tag => this._createTag(tag))
 
+    console.log(tagElements)
+
     if (tagElements.length > 0) {
+      console.log('In here')
       const title = document.createElement('h3')
       title.classList.add(EmbeddedSubscriptionForm.TAGS_TITLE_CLASS_NAME)
       title.textContent = this._options.texts?.tagsTitle ?? 'Välj dina intressen:'
