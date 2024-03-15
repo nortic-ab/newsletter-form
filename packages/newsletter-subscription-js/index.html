@@ -10,23 +10,5 @@
     <div id="newsletter-form" />
 
     <script type="module" src="src/main.ts"></script>
-
-    <script>
-      if (!window.usingPlaywright) {
-        setTimeout(() => {
-          const instance = new window.EmbeddedSubscriptionForm('#newsletter-form', {
-            "newsletterId": "a1eba6d6-c7a1-471e-b83f-52a12a748cd8",
-            "requestOptions": {
-              "baseUrl": "https://d9sggogbgohj6.cloudfront.net",
-            },
-            "showPhoneInput": true,
-            "texts": {
-              "successDescription": "för att du prenumerar på vårt nyhetsbrev!",
-              "successTitle": "Tack!"
-            }
-          });
-        }, 100)
-      }
-    </script>
   </body>
 </html>
