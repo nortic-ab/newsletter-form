@@ -431,8 +431,7 @@ export class EmbeddedSubscriptionForm {
 
     const tags = this._tagsWrapper.querySelectorAll(`.${EmbeddedSubscriptionForm.TAG_CLASS_NAME} input`)
 
-    console.log(tags)
-
+    // TODO: Pass to submit function when ready
     const tagValues = Array.from(tags).filter((tag): tag is HTMLInputElement => {
       return tag instanceof HTMLInputElement
     }).reduce((agg, el): Record<string, { value: boolean, type: 'Boolean' }> => {
@@ -447,8 +446,6 @@ export class EmbeddedSubscriptionForm {
         },
       }
     }, {})
-
-    console.log(JSON.stringify(tagValues, null, 2))
 
     if (isValid) {
       this._doRequest().then(() => this._onSuccessfulSubmit(this)).catch((e: NewsletterSubscriptionError | Error) => {
