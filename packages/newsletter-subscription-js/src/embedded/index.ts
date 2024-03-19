@@ -188,13 +188,10 @@ export class EmbeddedSubscriptionForm {
     this._tagsWrapper.innerHTML = ''
     const tagElements = this._tags.map(tag => this._createTag(tag))
 
-    console.log(tagElements)
-
     if (tagElements.length > 0) {
-      console.log('In here')
       const title = document.createElement('h3')
       title.classList.add(EmbeddedSubscriptionForm.TAGS_TITLE_CLASS_NAME)
-      title.textContent = this._options.texts?.tagsTitle ?? 'Välj dina intressen:'
+      title.textContent = this._options.texts?.tagsTitle ?? 'Jag är intresserad av:'
 
       this._tagsWrapper.appendChild(title)
 
