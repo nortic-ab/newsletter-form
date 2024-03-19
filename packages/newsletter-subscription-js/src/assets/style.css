@@ -165,6 +165,9 @@
     }
 
     .n-newsletter-form__tag {
+      display: inline-flex;
+      align-items: center;
+
       label {
         display: inline-block;
         margin: 0 0 0 0.5em;

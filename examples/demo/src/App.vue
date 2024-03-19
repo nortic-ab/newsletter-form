@@ -12,6 +12,7 @@ const options: SubmissionFormOptions = {
       hint: 'Your email goes here...',
     },
   },
+  tags: ['Demo', 'Sudoku'],
   requestOptions: {
     baseUrl: 'https://d9sggogbgohj6.cloudfront.net',
   },
