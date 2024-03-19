@@ -110,4 +110,34 @@ test.describe('Subscription form', () => {
 
     await expect(page.getByText('Vänligen ange en giltig e-postadress')).toHaveCSS('color', 'rgb(255, 0, 0)')
   })
+
+  test('Adding tag to options should add checkbox elements to the form', async ({ page }) => {
+    await page.evaluate(() => {
+      window.norticFormInstance.update({
+        tags: ['a', 'b', 'c'],
+      })
+    })
+
+    await expect(page.getByRole('checkbox', { name: 'a' })).toBeVisible()
+    await expect(page.getByRole('checkbox', { name: 'b' })).toBeVisible()
+    await expect(page.getByRole('checkbox', { name: 'c' })).toBeVisible()
+  })
+
+  test('Adding tag to options with labels should add checkbox elements to the form with correct labels', async ({ page }) => {
+    await page.evaluate(() => {
+      window.norticFormInstance.update({
+        texts: {
+          tags: {
+            a: 'A',
+            b: 'B',
+          },
+        },
+        tags: ['a', 'b', 'c'],
+      })
+    })
+
+    await expect(page.getByLabel('A')).toHaveValue('a')
+    await expect(page.getByLabel('B')).toHaveValue('b')
+    await expect(page.getByLabel('c')).toHaveValue('c')
+  })
 })
