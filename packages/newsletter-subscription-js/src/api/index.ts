@@ -7,6 +7,7 @@ export interface SubmitPayload {
   firstName?: string
   lastName?: string
   phoneNumber?: string
+  supportedDynamicValues: Record<string, { value: boolean, type: 'Boolean' }>
 }
 
 export interface SubmitOptions {

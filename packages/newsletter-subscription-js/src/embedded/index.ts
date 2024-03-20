@@ -389,7 +389,7 @@ export class EmbeddedSubscriptionForm {
     return isValid
   }
 
-  private _doRequest() {
+  private _doRequest(tags: Record<string, { value: boolean, type: 'Boolean' }> = {}) {
     return this._options.demo
       ? Promise.resolve()
       : EmbeddedSubscriptionForm.submit(this._newsletterId, {
@@ -397,6 +397,7 @@ export class EmbeddedSubscriptionForm {
         firstName: this._firstName,
         lastName: this._lastName,
         phoneNumber: this._phone,
+        supportedDynamicValues: tags,
       }, this._options.requestOptions)
   }
 
@@ -450,7 +451,7 @@ export class EmbeddedSubscriptionForm {
     }, {})
 
     if (isValid) {
-      this._doRequest().then(() => this._onSuccessfulSubmit(this)).catch((e: NewsletterSubscriptionError | Error) => {
+      this._doRequest(tagValues).then(() => this._onSuccessfulSubmit(this)).catch((e: NewsletterSubscriptionError | Error) => {
         if (e instanceof NewsletterSubscriptionError && e.errorCode === 8) {
           this._onSuccessfulSubmit(this)
         }
