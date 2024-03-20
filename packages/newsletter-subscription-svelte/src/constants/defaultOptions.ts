@@ -1,0 +1,50 @@
+import type { DeepRequired, NorticNewsletterOptions } from '../types'
+
+export const DEFAULT_OPTIONS: Omit<DeepRequired<NorticNewsletterOptions>, 'newsletterId' | 'requestOptions'> = {
+  onDestroy: () => {},
+  onError: () => {},
+  onReset: () => {},
+  onSuccess: () => {},
+  onUpdate: () => {},
+  demo: false,
+  hideSubmissionError: false,
+  showFirstNameInput: true,
+  showLastNameInput: true,
+  showPhoneInput: false,
+  tags: [],
+  texts: {
+    title: 'Prenumerera på vårt nyhetsbrev',
+    description: 'Prenumerera på vårt nyhetsbrev för att få information om kommande evenemang och erbjudanden.',
+    submit: 'Prenumerera',
+    emailInput: {
+      placeholder: 'john.doe@example.com',
+      label: 'E-post',
+      hint: '\u00A0',
+      validationError: 'Du har inte angett en giltig e-postadress.',
+    },
+    firstNameInput: {
+      placeholder: 'John',
+      label: 'Förnamn',
+      hint: '\u00A0',
+      validationError: '',
+    },
+    lastNameInput: {
+      placeholder: 'Doe',
+      label: 'Efternamn',
+      hint: '\u00A0',
+      validationError: '',
+    },
+    phoneInput: {
+      placeholder: '+46 70 123 45 67',
+      label: 'Telefonnummer',
+      hint: '\u00A0',
+      validationError: '',
+    },
+    genericErrorMessage: 'Något gick fel. Försök igen senare.',
+    successTitle: 'Tack för att du prenumererar!',
+    successDescription: '',
+    tagsTitle: 'Jag är intresserad av:',
+    tags: {},
+    acceptTermsLabel: '',
+  },
+}
