@@ -14,7 +14,7 @@ const options: SubmissionFormOptions = {
   },
   tags: ['Demo', 'Sudoku'],
   requestOptions: {
-    baseUrl: 'https://d9sggogbgohj6.cloudfront.net',
+    baseUrl: 'https://insight-dev-feature.nortic.io/api/insight',
   },
   onError: (e) => {
     console.error(e)

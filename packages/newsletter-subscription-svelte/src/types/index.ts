@@ -1,3 +1,33 @@
+export interface DynamicValue {
+  type: 'boolean'
+  value: boolean
+}
+
+export interface FetchResult<T> {
+  data: T
+}
+
+export type SubscribeResult = FetchResult<{
+  id: number
+  email: string
+  firstName: string
+  lastName: string
+  phoneNumber: string
+  newsletterId: string
+}>
+
+export interface FormState {
+  email: string
+  firstName?: string
+  lastName?: string
+  phoneNumber?: string
+  tags: Record<string, DynamicValue>
+}
+
+export interface SubmitOptions {
+  baseUrl?: string
+}
+
 export type DeepRequired<T> = {
   [P in keyof T]-?: T extends Record<string, any> ? DeepRequired<T[P]> : T;
 }

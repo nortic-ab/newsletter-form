@@ -1,21 +1,8 @@
 <script lang='ts'>
   import { createEventDispatcher } from 'svelte'
   import { DEFAULT_OPTIONS } from '../constants/defaultOptions'
-  import type { NorticNewsletterOptions } from '../types'
+  import type { FormState, NorticNewsletterOptions } from '../types'
   import FormInput from './FormInput.svelte'
-
-  type DynamicValue = {
-    type: 'boolean'
-    value: boolean
-  }
-
-  type FormState = {
-    email: string
-    firstName?: string
-    lastName?: string
-    phoneNumber?: string
-    tags: Record<string, DynamicValue>
-  }
 
   const dispatch = createEventDispatcher<{
     submit: FormState
@@ -24,6 +11,7 @@
   export let formElement: HTMLFormElement
   export let options: NorticNewsletterOptions
   export let formError: Error | null = null
+  export let isLoading = false
 
   let emailError: string | undefined
 
@@ -45,9 +33,9 @@
     ...DEFAULT_OPTIONS.texts.phoneInput,
     ...options?.texts?.phoneInput,
   }
-  $: isFirstNameVisible = options?.showFirstNameInput || DEFAULT_OPTIONS.showFirstNameInput
-  $: isLastNameVisible = options?.showLastNameInput || DEFAULT_OPTIONS.showLastNameInput
-  $: isPhoneVisible = options?.showPhoneInput || DEFAULT_OPTIONS.showPhoneInput
+  $: isFirstNameVisible = options?.showFirstNameInput ?? DEFAULT_OPTIONS.showFirstNameInput
+  $: isLastNameVisible = options?.showLastNameInput ?? DEFAULT_OPTIONS.showLastNameInput
+  $: isPhoneVisible = options?.showPhoneInput ?? DEFAULT_OPTIONS.showPhoneInput
 
   $: tags = (options?.tags || DEFAULT_OPTIONS.tags)
   $: tagsTitle = options?.texts?.tagsTitle || DEFAULT_OPTIONS.texts.tagsTitle
@@ -102,8 +90,8 @@
 </script>
 
 <form on:submit={submitHandler} bind:this={formElement}>
-  <h2>{title}</h2>
-  <p>{description}</p>
+  <h2 class='nortic--title'>{title}</h2>
+  <p class='nortic--subtitle'>{description}</p>
 
   <div>
     <FormInput
@@ -152,8 +140,8 @@
   </div>
 
   {#if tags.length > 0}
-    <div>
-      <h3>{tagsTitle}</h3>
+    <div class='nortic--tag-wrapper'>
+      <p class='nortic--tag-title'>{tagsTitle}</p>
 
       {#each tags as tag}
         <div>
@@ -167,10 +155,12 @@
   {/if}
 
   <div>
-    <button>{submitText}</button>
+    <button class='nortic--subscribe-btn' disabled={isLoading}><span>{submitText}</span>{#if isLoading}<span class='nortic--loading-spinner' />{/if}</button>
   </div>
 
   {#if formError}
-    <p>{options.texts?.genericErrorMessage || DEFAULT_OPTIONS.texts.genericErrorMessage}</p>
+    <div class='nortic--form-error-wrapper'>
+      <p>{options.texts?.genericErrorMessage || DEFAULT_OPTIONS.texts.genericErrorMessage}</p>
+    </div>
   {/if}
 </form>

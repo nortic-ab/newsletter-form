@@ -29,7 +29,7 @@ export function mergeOptionsDeep(defaultOptions: NorticNewsletterOptions, option
       ...defaultOptions.requestOptions,
       ...options.requestOptions,
     },
-    tags: [...(defaultOptions.tags || []), ...(options.tags || [])],
+    tags: (options.tags || []).length ? options.tags : defaultOptions.tags,
   }
 
   return result

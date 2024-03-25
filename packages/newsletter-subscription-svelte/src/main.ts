@@ -19,19 +19,22 @@ export class EmbeddedSubscriptionForm {
 
     this.app = new App({
       target: el,
-      props: { options },
+      props: { options: this.options },
     })
   }
 
   update(newOptions: Partial<NorticNewsletterOptions>) {
-    this.app.$set({ options: mergeOptionsDeep(this.options, newOptions) })
+    this.options = mergeOptionsDeep(this.options, newOptions)
+    this.app.$set({ options: this.options })
   }
 
   destroy() {
+    this.options.onDestroy?.()
     this.app.$destroy()
   }
 
   reset() {
+    this.options.onReset?.()
     this.app.$set({ options: this.options })
   }
 }

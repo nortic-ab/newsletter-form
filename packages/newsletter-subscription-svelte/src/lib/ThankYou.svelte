@@ -3,9 +3,14 @@
 
   export let successTitle = DEFAULT_OPTIONS.texts.successTitle
   export let successDescription = DEFAULT_OPTIONS.texts.successDescription
+
+  $: _successTitle = successTitle || DEFAULT_OPTIONS.texts.successTitle
+  $: _successDescription = successDescription || DEFAULT_OPTIONS.texts.successDescription
 </script>
 
-<div {...$$props}>
-  <h2>{successTitle}</h2>
-  <p>{successDescription}</p>
+<div class='nortic--success-wrapper' {...$$props}>
+  <div class='nortic-success-container'>
+    <h2>{_successTitle}</h2>
+    <p>{_successDescription}</p>
+  </div>
 </div>

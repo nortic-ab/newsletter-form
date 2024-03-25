@@ -1,22 +1,19 @@
 import { EmbeddedSubscriptionForm } from './main'
 import type { NorticNewsletterOptions } from './types'
 
+import './assets/style.css'
+
 const options: NorticNewsletterOptions = {
   newsletterId: '',
+  demo: false,
+  showPhoneInput: true,
   texts: {
-    title: 'nope',
-    successTitle: 'Tackar tackar!',
-    successDescription: 'Vi har skickat ett mail till dig. Kolla din inkorg och bekräfta prenumerationen.',
+    successDescription: 'lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
+    emailInput: {
+      hint: 'Hello world',
+    },
   },
-  tags: ['svelte', 'nortic', 'newsletter', 'typescript'],
+  tags: ['Svelte', 'Vite', 'TS'],
 }
 
 const app = new EmbeddedSubscriptionForm('#app', options)
-
-setTimeout(() => {
-  app.update({
-    texts: {
-      title: 'yep',
-    },
-  })
-}, 5000)

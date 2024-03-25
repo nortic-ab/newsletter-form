@@ -20,8 +20,8 @@
   }
 </script>
 
-<div>
-  <label for={id}>{_label}</label>
-  <input {...inputProperties} bind:value on:input />
-  <small>{_hint}</small>
+<div class='nortic--input-wrapper'>
+  <label class='nortic--input-label' for={id}>{_label}</label>
+  <input class='nortic--input' {...inputProperties} bind:value on:input />
+  <small class={['nortic--input-hint', ...(errorMessage ? ['nortic--input-error'] : [])].join(' ')}>{_hint}</small>
 </div>
