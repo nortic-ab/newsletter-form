@@ -4,7 +4,9 @@ import type { Theme } from '@unocss/preset-mini'
 
 export default defineConfig<Theme>({
   presets: [
-    presetUno(),
+    presetUno({
+      variablePrefix: 'nortic-un-',
+    }),
     presetIcons({
       scale: 1.2,
       collections: {
@@ -42,7 +44,7 @@ export default defineConfig<Theme>({
     ['nortic--subtitle', 'text-sm text-variable-sub mt-0 mb-4 max-w-md'],
     ['nortic--input-wrapper', 'block w-full mb-1'],
     ['nortic--input-label', 'block text-base font-normal'],
-    ['nortic--input', 'block w-full pl-2 py-2 rounded-lg border border-solid bg-variable-input border-variable-border box-border'],
+    ['nortic--input', 'block w-full pl-2 py-2 rounded-lg border border-solid bg-variable-input placeholder:text-variable-placeholder border-variable-border box-border'],
     ['nortic--input-hint', 'block text-xs text-variable-sub mt-0.5 pl-2'],
     ['nortic--input-error', 'text-variable-error'],
     ['nortic--tag-wrapper', 'mb-8'],
@@ -69,7 +71,7 @@ export default defineConfig<Theme>({
         text: 'rgba(var(--nortic-text, 0, 0, 0))',
         sub: 'rgba(var(--nortic-sub, 25, 25, 25))',
         input: 'rgba(var(--nortic-input, 255, 255, 255))',
-        placeholder: 'rgba(var(--nortic-placeholder, 0, 0, 0, 0.5))',
+        placeholder: 'rgba(var(--nortic-input-placeholder, 127, 127, 127))',
       },
     },
   },

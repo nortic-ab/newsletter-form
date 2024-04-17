@@ -1,47 +1,191 @@
-# Svelte + TS + Vite
+<p align="center">
+  <a target="_blank" href="https://b2b.nortic.se">
+  <img alt="nortic logo" src="https://github.com/nortic-ab/newsletter-form/assets/18286634/c2663966-535d-46f9-8a85-a3d4e4300b05" width="400">
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+  </a>
+</p>
+<br>
 
-## Recommended IDE Setup
+# Nortic Newsletter Form :love_letter:
+This javascript module allows you to embed a subscription form for your newsletters created with [Nortic Insight](https://insight.nortic.se)!
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## Getting started
+There are two ways to use this package, CDN or as a Node Package.
 
-## Need an official Svelte framework?
+### CDN
+#### Add CSS
+```xml
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.css"></link>
+  </head>
+</html>
+```
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+#### Initialize form
+```html
+<div id="newsletter-form" />
 
-## Technical considerations
+<script src="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.global.js"></script>
 
-**Why use this over SvelteKit?**
+<script>
+/* Embed our form on your web page */
+new NorticNewsletter.EmbeddedSubscriptionForm('#newsletter-form', {
+  newsletterId: '<your-newsletter-id-here>',
+});
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+/* Or use ajax request if you want to create your own form */
+function submit() {
+  NorticNewsletter.submitSubscription('<email>', {
+    /* These are optional */
+    firstName: '<first-name>',
+    lastName: '<last-name>',
+    phone: '<phone-number>',
+  })
+}
+</script>
+```
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+### NPM package
+#### Install the package
+```bash
+npm i @nortic/newsletter-form
+# yarn add @nortic/newsletter-form
+# pnpm add @nortic/newsletter-form
+```
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+#### Usage
+```js
+import { EmbeddedSubscriptionForm, submitSubscription } from '@nortic/newsletter-from'
+import '@nortic/newsletter-form/dist/index.css'
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+/* Embed our form on your web page */
+const formInstance = new EmbeddedSubscriptionForm('<element-query-selector>', {
+  newsletterId: '<your-newsletter-id-here>',
+})
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+/* Or use ajax request if you want to create your own form */
+function submit() {
+  submitSubscription('<email>', {
+    /* These are optional */
+    firstName: '<first-name>',
+    lastName: '<last-name>',
+    phone: '<phone-number>',
+  })
+}
+```
 
-**Why include `.vscode/extensions.json`?**
+## Options
+It is possible to customize the content of the form by passing an optional *options* argument to the constructor:
+```js
+const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
+  newsletterId: '<your-newsletter-id-here>',
+  options: {
+    // Options go here
+  }
+})
+```
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
+#### Options
+> **_NOTE:_**  All options are optional.
 
-**Why enable `allowJs` in the TS template?**
+| Property                             | Description                                                                                                                                     | Default value                                                     |
+|--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| **showFirstNameInput**               | Show the first name input field                                                                                                                 | true                                                              |
+| **showLastNameInput**                | Show the last name input field                                                                                                                  | true                                                             |
+| **showPhoneInput**                   | Show the phone number input field                                                                                                               | false                                                             |
+| **hideSubmissionError**              | Hide the generic error message                                                                                                                      | false |
+| **texts.title**                      | The title of the form                                                                                                                           | "Subscribe to our newsletter"                                     |
+| **texts.description**                | A sub title of the form                                                                                                                         | "Subscribe to our newsletter and get the latest news and updates" |
+| **texts.submit**                     | The submit button text                                                                                                                          | "Subscribe"                                                       |
+| **texts.acceptTermsLabel**           | Adds terms texts above the subscribe button. Can also include links, example "By pressing the button I accept the [terms](https://example.com)" | ""                                                                |
+| **texts.emailInput.label**           | The label of the email input field                                                                                                              | "Email"                                                           |
+| **texts.emailInput.placeholder**     | The placeholder of the email input field                                                                                                        | "john.doe@example.com"                                            |
+| **texts.emailInput.validationError** | The error message of the email input field                                                                                                      | "Please enter a valid email address"                              |
+| **texts.emailInput.hint**            | A hint message of the email input field                                                                                                         | ""                                                                |
+| **texts.firstNameInput.label**       | The label of the first name input field                                                                                                         | "First name"                                                      |
+| **texts.firstNameInput.placeholder** | The placeholder of the first name input field                                                                                                   | "John"                                                            |
+| **texts.lastNameInput.label**        | The label of the last name input field                                                                                                          | "Last name"                                                       |
+| **texts.lastNameInput.placeholder**  | The placeholder of the last name input field                                                                                                    | "Doe"                                                             |
+| **texts.phoneInput.label**           | The label of the phone input field                                                                                                              | "Phone"                                                           |
+| **texts.phoneInput.placeholder**     | The placeholder of the phone input field                                                                                                        | "+46 70 123 45 67"                                                |
+| **texts.genericErrorMessage**        | The error message displayed when form submission fails                                                                                          | "Ett fel uppstod. Vänligen försök igen senare."                                           |
 
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
+#### Callbacks
+> **_NOTE:_**  All callbacks are optional.
 
-**Why is HMR not preserving my local component state?**
+**onSuccess:** Called on successful subscription request
 
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
+**onError:** Called if the subscription request fails (the error is available as an argument)
 
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
+**onReset:** Called when the form is reset
 
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+**onUpdate:** Called when the form is updated
+
+**onDestroy:** Called when the form is destroyed
+
+## Styling
+There are a few CSS variables that you can modify to customize the look of the form.
+If you need more customization, simply create your own CSS definitions and override classes as needed.
+
+Available CSS Variables and default values:
+```css
+--nortic-form-error: 239, 68, 68;
+--nortic-background: 243, 244, 246;
+--nortic-border: 213, 215, 219;
+--nortic-text: 0, 0, 0;
+--nortic-sub: 25, 25, 25;
+--nortic-input: 255, 255, 255;
+--nortic-placeholder: 127, 127, 127;
+```
+
+## Type definitions
+```typescript
+declare class EmbeddedSubscriptionForm {
+    static submit(email: string, options: SubmitOptions): Promise<void>;
+
+    constructor(el: string | HTMLElement, options: NorticNewsletterOptions);
+
+    update(options: NorticNewsletterOptions, reset?: boolean): void;
+    reset(): void;
+    destroy(): void;
+}
+
+interface SubmitOptionsBase {
+    newsletterId: number;
+}
+
+interface SubmitOptions extends SubmitOptionsBase {
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+}
+
+interface InputTexts {
+    label?: string;
+    placeholder?: string;
+    validationError?: string;
+    hint?: string;
+}
+
+interface NorticNewsletterOptions extends SubmitOptionsBase {
+    onSuccess?: () => void;
+    onError?: (error: Error) => void;
+    onReset?: () => void;
+    onUpdate?: () => void;
+    onDestroy?: () => void;
+    showFirstNameInput?: boolean;
+    showLastNameInput?: boolean;
+    showPhoneInput?: boolean;
+    texts?: {
+        title?: string;
+        description?: string;
+        submit?: string;
+        emailInput?: InputTexts;
+        firstNameInput?: InputTexts;
+        lastNameInput?: InputTexts;
+        phoneInput?: InputTexts;
+        acceptTermsLabel?: string;
+    };
+}
 ```
