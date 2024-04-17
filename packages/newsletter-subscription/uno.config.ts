@@ -39,7 +39,7 @@ export default defineConfig<Theme>({
   },
 
   shortcuts: [
-    ['nortic--wrapper', 'p-4 bg-variable-background rounded-lg border border-solid border-variable-border text-variable-text inline-block max-w-md'],
+    ['nortic--wrapper', 'p-4 bg-variable-background rounded-lg border border-solid border-variable-border text-variable-text inline-block'],
     ['nortic--title', 'text-2xl font-semibold my-0'],
     ['nortic--subtitle', 'text-sm text-variable-sub mt-0 mb-4 max-w-md'],
     ['nortic--input-wrapper', 'block w-full mb-1'],
