@@ -23,7 +23,8 @@
     "dist/"
   ],
   "scripts": {
-    "demo:dev": "pnpm --filter demo dev",
+    "example:core:dev": "pnpm --filter core-example dev",
+    "example:vue:dev": "pnpm --filter vue-example dev",
     "build": "tsx ./scripts/build.ts",
     "clean": "rimraf packages/*/dist",
     "lint": "eslint .",
