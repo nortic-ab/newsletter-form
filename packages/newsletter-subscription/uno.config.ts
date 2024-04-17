@@ -56,7 +56,7 @@ export default defineConfig<Theme>({
     ['nortic--affiliation-logo', 'i-nortic-logo inline-block ml-1 text-base'],
     ['nortic--success-wrapper', 'flex items-center justify-center text-center'],
     ['nortic-success-container', 'text-center [&>h2]:(text-2xl text-center font-semibold mt-0 mb-1) [&>p]:(text-sm text-variable-sub mt-0 mb-4)'],
-    ['nortic--tags-box', 'flex flex-wrap gap-2'],
+    ['nortic--tags-box', 'flex flex-wrap gap-x-4 gap-y-2 [&_label]:(flex gap-1 items-center)'],
   ],
 
   theme: {

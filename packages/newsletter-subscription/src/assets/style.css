@@ -20,7 +20,8 @@
 .nortic--subscribe-btn>span{display:inline-block;}
 .nortic--wrapper{display:inline-block;max-width:28rem;border-width:1px;--nortic-un-border-opacity:1;border-color:rgba(var(--nortic-border, 213, 215, 219), var(--nortic-un-border-opacity));border-radius:0.5rem;border-style:solid;--nortic-un-bg-opacity:1;background-color:rgba(var(--nortic-background, 243, 244, 246), var(--nortic-un-bg-opacity));padding:1rem;--nortic-un-text-opacity:1;color:rgba(var(--nortic-text, 0, 0, 0), var(--nortic-un-text-opacity));}
 .nortic--success-wrapper{display:flex;align-items:center;justify-content:center;text-align:center;}
-.nortic--tags-box{display:flex;flex-wrap:wrap;gap:0.5rem;}
+.nortic--tags-box{display:flex;flex-wrap:wrap;column-gap:1rem;row-gap:0.5rem;}
+.nortic--tags-box label{display:flex;align-items:center;gap:0.25rem;}
 .nortic--subscribe-btn:hover{background-color:rgb(0 0 0 / 0.8);}
 .nortic-success-container{text-align:center;}
 .nortic--affiliation>a{--nortic-un-text-opacity:1;color:rgb(55 70 164 / var(--nortic-un-text-opacity));font-weight:600;text-decoration:none;}
