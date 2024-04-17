@@ -90,8 +90,8 @@
 </script>
 
 <form on:submit={submitHandler} bind:this={formElement}>
-  <h2 class='nortic--title'>{title}</h2>
-  <p class='nortic--subtitle'>{description}</p>
+  <h2 class='nortic-newsletter--title'>{title}</h2>
+  <p class='nortic-newsletter--subtitle'>{description}</p>
 
   <div>
     <FormInput
@@ -140,10 +140,10 @@
   </div>
 
   {#if tags.length > 0}
-    <div class='nortic--tag-wrapper'>
-      <p class='nortic--tag-title'>{tagsTitle}</p>
+    <div class='nortic-newsletter--tag-wrapper'>
+      <p class='nortic-newsletter--tag-title'>{tagsTitle}</p>
 
-      <div class='nortic--tags-box'>
+      <div class='nortic-newsletter--tags-box'>
         {#each tags as tag}
           <div>
             <label>
@@ -157,11 +157,11 @@
   {/if}
 
   <div>
-    <button class='nortic--subscribe-btn' disabled={isLoading}><span>{submitText}</span>{#if isLoading}<span class='nortic--loading-spinner' />{/if}</button>
+    <button class='nortic-newsletter--subscribe-btn' disabled={isLoading}><span>{submitText}</span>{#if isLoading}<span class='nortic-newsletter--loading-spinner' />{/if}</button>
   </div>
 
   {#if formError}
-    <div class='nortic--form-error-wrapper'>
+    <div class='nortic-newsletter--form-error-wrapper'>
       <p>{options.texts?.genericErrorMessage || DEFAULT_OPTIONS.texts.genericErrorMessage}</p>
     </div>
   {/if}

@@ -49,7 +49,7 @@
   }
 </script>
 
-<div class='nortic--wrapper'>
+<div class='nortic-newsletter--wrapper'>
   {#if subscribeCompleted}
     <ThankYou
       style={formElementHeight ? `min-height: ${formElementHeight}px; width: ${formElementWidth}px;` : undefined}
@@ -60,5 +60,5 @@
     <SubscriptionForm bind:formElement={form} {options} {formError} {isLoading} on:submit={submitHandler} />
   {/if}
 
-  <p class='nortic--affiliation'>Powered by <a href='https://nortic.se' target='_blank'><span class='nortic--affiliation-logo' /></a></p>
+  <p class='nortic-newsletter--affiliation'>Powered by <a href='https://nortic.se' target='_blank'><span class='nortic-newsletter--affiliation-logo' /></a></p>
 </div>

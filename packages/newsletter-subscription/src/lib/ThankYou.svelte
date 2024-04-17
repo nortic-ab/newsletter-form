@@ -8,7 +8,7 @@
   $: _successDescription = successDescription || DEFAULT_OPTIONS.texts.successDescription
 </script>
 
-<div class='nortic--success-wrapper' {...$$props}>
+<div class='nortic-newsletter--success-wrapper' {...$$props}>
   <div class='nortic-success-container'>
     <h2>{_successTitle}</h2>
     <p>{_successDescription}</p>
