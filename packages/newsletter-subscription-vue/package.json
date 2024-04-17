@@ -1,7 +1,7 @@
 {
   "name": "@nortic/newsletter-form-vue",
   "type": "module",
-  "version": "1.1.6",
+  "version": "1.2.0-beta.0",
   "description": "Nortic newsletter subscription form for Vue",
   "license": "MIT",
   "homepage": "https://b2b.nortic.se",
