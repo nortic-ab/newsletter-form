@@ -43,6 +43,9 @@
 
   $: submitText = options?.texts?.submit || DEFAULT_OPTIONS.texts.submit
 
+  $: acceptTermsLabel = options?.texts?.acceptTermsLabel || DEFAULT_OPTIONS.texts.acceptTermsLabel
+  $: acceptTermsLabelResolved = `<p class="nortic-newsletter--terms-wrapper">${acceptTermsLabel?.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')}</p>`
+
   const formState: Required<FormState> = {
     email: '',
     firstName: '',
@@ -148,7 +151,7 @@
           <div>
             <label>
               <input type='checkbox' bind:checked={formState.tags[tag].value} />
-              {tagsCaptions[tag] || tag}
+              <span>{tagsCaptions[tag] || tag}</span>
             </label>
           </div>
         {/each}
@@ -158,6 +161,10 @@
 
   <div>
     <button class='nortic-newsletter--subscribe-btn' disabled={isLoading}><span>{submitText}</span>{#if isLoading}<span class='nortic-newsletter--loading-spinner' />{/if}</button>
+    {#if acceptTermsLabel}
+      <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+      {@html acceptTermsLabelResolved}
+    {/if}
   </div>
 
   {#if formError}

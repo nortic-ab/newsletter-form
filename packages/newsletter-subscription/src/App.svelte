@@ -14,9 +14,18 @@
   let subscribeCompleted = false
   let isLoading = false
 
+  export function toggleSubscribeCompleted(value = !subscribeCompleted) {
+    if (!subscribeCompleted) {
+      formElementHeight = form.offsetHeight
+      formElementWidth = form.offsetWidth
+    }
+
+    subscribeCompleted = value
+  }
+
   function _onSuccessfulSubmit() {
     options.onSuccess?.()
-    subscribeCompleted = true
+    toggleSubscribeCompleted(true)
   }
 
   function submit(...args: Parameters<typeof submitSubscription>) {
@@ -28,8 +37,6 @@
 
   function submitHandler(event: ComponentEvents<SubscriptionForm>['submit']) {
     isLoading = true
-    formElementHeight = form.offsetHeight
-    formElementWidth = form.offsetWidth
     formError = undefined
 
     submit(options.newsletterId, event.detail, options.requestOptions)

@@ -43,4 +43,8 @@ export class EmbeddedSubscriptionForm {
     this.options.onReset?.()
     this.app.$set({ options: this.options })
   }
+
+  _toggleSubscribeCompleted(value?: boolean) {
+    this.app.toggleSubscribeCompleted(value)
+  }
 }

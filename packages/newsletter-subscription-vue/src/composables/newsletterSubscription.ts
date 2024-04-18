@@ -46,6 +46,11 @@ export function useNewsletterSubscriptionForm(element: MaybeRef<HTMLElement | un
     unref(options).onReset?.()
   }
 
+  function _toggleSubscribeCompleted(value?: boolean) {
+    if (formInstance.value)
+      formInstance.value._toggleSubscribeCompleted(value)
+  }
+
   const resolvedOptions = computed(() => ({
     ...unref(options),
     onSuccess,
@@ -72,12 +77,13 @@ export function useNewsletterSubscriptionForm(element: MaybeRef<HTMLElement | un
   })
 
   return {
+    formInstance,
     submitted,
     error,
     update,
     destroy,
     reset,
-    formInstance,
+    _toggleSubscribeCompleted,
   }
 }
 
