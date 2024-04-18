@@ -36,6 +36,19 @@ importers:
         specifier: ^5.3.3
         version: 5.3.3
 
+  examples/cdn:
+    dependencies:
+      '@nortic/newsletter-form':
+        specifier: workspace:^
+        version: link:../../packages/newsletter-subscription
+    devDependencies:
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.2
+      vite:
+        specifier: ^5.2.0
+        version: 5.2.2(@types/node@20.11.4)
+
   examples/core:
     dependencies:
       '@nortic/newsletter-form':
@@ -6299,7 +6312,7 @@ packages:
     dependencies:
       '@volar/typescript': 1.11.1
       '@vue/language-core': 1.8.27(typescript@5.3.3)
-      semver: 7.5.4
+      semver: 7.6.0
       typescript: 5.3.3
     dev: true
 
