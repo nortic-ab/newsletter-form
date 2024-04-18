@@ -16,5 +16,6 @@
     "isolatedModules": true
   },
   "references": [{ "path": "./tsconfig.node.json" }],
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte", "./nortic.d.ts", "tests/**/*.spec.ts"]
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"],
+  "exclude": ["src/main.ts"]
 }

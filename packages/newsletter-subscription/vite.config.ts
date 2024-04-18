@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [svelte(), dts()],
   build: {
     lib: {
-      entry: 'src/main.ts',
+      entry: 'src/index.ts',
       name: 'NorticNewsletter',
       fileName: (module) => {
         switch (module) {
