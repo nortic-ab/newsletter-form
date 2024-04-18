@@ -32,6 +32,7 @@ export class EmbeddedSubscriptionForm {
   update(newOptions: Partial<Types.NorticNewsletterOptions>) {
     this.options = mergeOptionsDeep(this.options, newOptions)
     this.app.$set({ options: this.options })
+    this.options.onUpdate?.()
   }
 
   destroy() {
@@ -42,6 +43,7 @@ export class EmbeddedSubscriptionForm {
   reset() {
     this.options.onReset?.()
     this.app.$set({ options: this.options })
+    this.app.resetForm()
   }
 
   _toggleSubscribeCompleted(value?: boolean) {

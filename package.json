@@ -23,8 +23,9 @@
     "dist/"
   ],
   "scripts": {
-    "example:core:dev": "pnpm --filter core-example dev",
-    "example:vue:dev": "pnpm --filter vue-example dev",
+    "dev:example-core": "pnpm --filter core-example dev",
+    "dev:example-vue": "pnpm --filter vue-example dev",
+    "dev:example-cdn": "pnpm --filter cdn-example dev",
     "build": "tsx ./scripts/build.ts",
     "clean": "rimraf packages/*/dist",
     "lint": "eslint .",

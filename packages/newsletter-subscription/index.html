@@ -4,15 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + Svelte + TS</title>
+    <link rel="stylesheet" href="/src/assets/style.css" />
   </head>
   <body>
-    <div id="app"></div>
+  	<h1>This is a test application</h1>
+
+    <div id="newsletter-form" />
 
     <script type="module" src="src/index.ts"></script>
-
-    <script>
-      new NorticNewsletter.EmbeddedSubscriptionForm('#app', { newsletterId: '', demo: true })
-    </script>
-  
   </body>
 </html>

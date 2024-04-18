@@ -54,6 +54,14 @@
     tags: {},
   }
 
+  export function resetFormState() {
+    formState.email = ''
+    formState.firstName = ''
+    formState.lastName = ''
+    formState.phoneNumber = ''
+    formState.tags = {}
+  }
+
   // A reactive statement to ensure formState.tags updates reactively
   $: formState.tags = tags.reduce((acc, tag) => {
     // Use the current value if it exists to avoid resetting the checkbox state
@@ -150,7 +158,7 @@
         {#each tags as tag}
           <div>
             <label>
-              <input type='checkbox' bind:checked={formState.tags[tag].value} />
+              <input type='checkbox' bind:checked={formState.tags[tag].value} bind:value={tag} />
               <span>{tagsCaptions[tag] || tag}</span>
             </label>
           </div>

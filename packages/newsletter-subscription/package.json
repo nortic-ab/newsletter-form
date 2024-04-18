@@ -30,7 +30,9 @@
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "lint": "eslint . --fix",
-    "gen:unocss": "unocss"
+    "gen:unocss": "unocss",
+    "test": "playwright test",
+    "test:ui": "playwright test --ui"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.8.3",

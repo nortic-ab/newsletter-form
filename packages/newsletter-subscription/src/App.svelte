@@ -7,6 +7,7 @@
 
   export let options: NorticNewsletterOptions
 
+  let subscriptionFormInstance: SubscriptionForm
   let form: HTMLFormElement
   let formElementHeight: number
   let formElementWidth: number
@@ -21,6 +22,10 @@
     }
 
     subscribeCompleted = value
+  }
+
+  export function resetForm() {
+    subscriptionFormInstance.resetFormState()
   }
 
   function _onSuccessfulSubmit() {
@@ -64,7 +69,7 @@
       successDescription={options.texts?.successDescription}
     />
   {:else}
-    <SubscriptionForm bind:formElement={form} {options} {formError} {isLoading} on:submit={submitHandler} />
+    <SubscriptionForm bind:formElement={form} bind:this={subscriptionFormInstance} {options} {formError} {isLoading} on:submit={submitHandler} />
   {/if}
 
   <p class='nortic-newsletter--affiliation'>Powered by <a href='https://nortic.se' target='_blank'><span class='nortic-newsletter--affiliation-logo' /></a></p>
