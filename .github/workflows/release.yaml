@@ -29,6 +29,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
+      - name: Extract tag name
+        id: get_version
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          echo "TAG_NAME=$TAG_NAME" >> $GITHUB_ENV
+          if [[ "$TAG_NAME" == *"-beta"* ]]; then
+            echo "NPM_TAG=beta" >> $GITHUB_ENV
+          elif [[ "$TAG_NAME" == *"-alpha"* ]]; then
+            echo "NPM_TAG=alpha" >> $GITHUB_ENV
+          else
+            echo "NPM_TAG=latest" >> $GITHUB_ENV
+          fi
+
       - name: Install dependencies
         run: pnpm -r install --frozen-lockfile
 
@@ -36,7 +49,7 @@ jobs:
         run: pnpm build
 
       - name: Publish to NPM
-        run: pnpm -r publish --access public --no-git-checks
+        run: pnpm -r publish --access public --no-git-checks --tag ${{ env.NPM_TAG }}
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
