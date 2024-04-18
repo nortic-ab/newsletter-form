@@ -137,6 +137,7 @@ Available CSS Variables and default values:
 --nortic-sub: 25, 25, 25;
 --nortic-input: 255, 255, 255;
 --nortic-placeholder: 127, 127, 127;
+--nortic-link: 55, 70, 164;
 ```
 
 ## Type definitions

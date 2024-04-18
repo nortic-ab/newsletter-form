@@ -39,7 +39,7 @@ export default defineConfig<Theme>({
   },
 
   shortcuts: [
-    ['nortic-newsletter--wrapper', 'p-4 bg-variable-background rounded-lg border border-solid border-variable-border text-variable-text inline-block'],
+    ['nortic-newsletter--wrapper', 'p-4 bg-variable-background min-w-sm rounded-lg border border-solid border-variable-border text-variable-text inline-block'],
     ['nortic-newsletter--title', 'text-2xl font-semibold my-0'],
     ['nortic-newsletter--subtitle', 'text-sm text-variable-sub mt-0 mb-4 max-w-md'],
     ['nortic-newsletter--input-wrapper', 'block w-full mb-1'],
@@ -58,7 +58,7 @@ export default defineConfig<Theme>({
     ['nortic-success-container', 'text-center [&>h2]:(text-2xl text-center font-semibold mt-0 mb-1) [&>p]:(text-sm text-variable-sub mt-0 mb-4)'],
     ['nortic-newsletter--tags-box', 'flex flex-wrap gap-x-4 gap-y-2 [&_label]:(flex gap-1 items-center)'],
     ['nortic-newsletter--terms-wrapper', 'text-sm text-variable-sub mt-1'],
-    ['nortic-newsletter--link', 'text-nortic underline'],
+    ['nortic-newsletter--link', 'text-variable-link underline'],
   ],
 
   theme: {
@@ -74,6 +74,7 @@ export default defineConfig<Theme>({
         sub: 'rgba(var(--nortic-sub, 25, 25, 25))',
         input: 'rgba(var(--nortic-input, 255, 255, 255))',
         placeholder: 'rgba(var(--nortic-input-placeholder, 127, 127, 127))',
+        link: 'rgba(var(--nortic-link, 55, 70, 164))',
       },
     },
   },
