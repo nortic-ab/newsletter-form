@@ -66,7 +66,6 @@ test.describe('Subscription form', () => {
     await page.evaluate(() => {
       window.norticFormInstance.update({
         onUpdate: () => {
-          console.log(window.norticFormInstance)
           // Remove onUpdate callback to avoid infinite loop
           // eslint-disable-next-line ts/ban-ts-comment
           // @ts-expect-error
