@@ -44,7 +44,7 @@
   $: submitText = options?.texts?.submit || DEFAULT_OPTIONS.texts.submit
 
   $: acceptTermsLabel = options?.texts?.acceptTermsLabel || DEFAULT_OPTIONS.texts.acceptTermsLabel
-  $: acceptTermsLabelResolved = `<p class="nortic-newsletter--terms-wrapper">${acceptTermsLabel?.replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')}</p>`
+  $: acceptTermsLabelResolved = `<p class="nortic-newsletter--terms-wrapper">${acceptTermsLabel?.replace(/\[(.*?)\]\((.*?)\)/g, '<a class="nortic-newsletter--link" href="$2" target="_blank" rel="noopener noreferrer">$1</a>')}</p>`
 
   const formState: Required<FormState> = {
     email: '',

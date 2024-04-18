@@ -13,7 +13,7 @@
 .nortic-newsletter--subtitle{margin-top:0;margin-bottom:1rem;max-width:28rem;font-size:0.875rem;line-height:1.25rem;--nortic-un-text-opacity:1;color:rgba(var(--nortic-sub, 25, 25, 25), var(--nortic-un-text-opacity));}
 .nortic-newsletter--tag-title{margin-top:0.5rem;margin-bottom:0.25rem;font-size:1.125rem;line-height:1.75rem;--nortic-un-text-opacity:1;color:rgba(var(--nortic-text, 0, 0, 0), var(--nortic-un-text-opacity));font-weight:600;}
 .nortic-newsletter--tag-wrapper{margin-bottom:2rem;}
-.nortic-newsletter--terms-wrapper{margin-top:0.25rem;font-size:0.75rem;line-height:1rem;--nortic-un-text-opacity:1;color:rgba(var(--nortic-sub, 25, 25, 25), var(--nortic-un-text-opacity));}
+.nortic-newsletter--terms-wrapper{margin-top:0.25rem;font-size:0.875rem;line-height:1.25rem;--nortic-un-text-opacity:1;color:rgba(var(--nortic-sub, 25, 25, 25), var(--nortic-un-text-opacity));}
 .nortic-success-container>h2{margin-top:0;margin-bottom:0.25rem;text-align:center;font-size:1.5rem;line-height:2rem;font-weight:600;}
 .nortic-success-container>p{margin-top:0;margin-bottom:1rem;font-size:0.875rem;line-height:1.25rem;--nortic-un-text-opacity:1;color:rgba(var(--nortic-sub, 25, 25, 25), var(--nortic-un-text-opacity));}
 .nortic-newsletter--input{box-sizing:border-box;display:block;width:100%;border-width:1px;--nortic-un-border-opacity:1;border-color:rgba(var(--nortic-border, 213, 215, 219), var(--nortic-un-border-opacity));border-radius:0.5rem;border-style:solid;--nortic-un-bg-opacity:1;background-color:rgba(var(--nortic-input, 255, 255, 255), var(--nortic-un-bg-opacity));padding-top:0.5rem;padding-bottom:0.5rem;padding-left:0.5rem;}
@@ -27,6 +27,7 @@
 .nortic-success-container{text-align:center;}
 .nortic-newsletter--affiliation>a{--nortic-un-text-opacity:1;color:rgb(55 70 164 / var(--nortic-un-text-opacity));font-weight:600;text-decoration:none;}
 .nortic-newsletter--input-error{--nortic-un-text-opacity:1;color:rgba(var(--nortic-form-error, 239, 68, 68), var(--nortic-un-text-opacity));}
+.nortic-newsletter--link{--nortic-un-text-opacity:1;color:rgb(55 70 164 / var(--nortic-un-text-opacity));text-decoration-line:underline;}
 .nortic-newsletter--input::placeholder{--nortic-un-text-opacity:1;color:rgba(var(--nortic-input-placeholder, 127, 127, 127), var(--nortic-un-text-opacity));}
 .nortic-newsletter--subscribe-btn:disabled{opacity:0.5;}
 /* layer: default */

@@ -57,7 +57,8 @@ export default defineConfig<Theme>({
     ['nortic-newsletter--success-wrapper', 'flex items-center justify-center text-center'],
     ['nortic-success-container', 'text-center [&>h2]:(text-2xl text-center font-semibold mt-0 mb-1) [&>p]:(text-sm text-variable-sub mt-0 mb-4)'],
     ['nortic-newsletter--tags-box', 'flex flex-wrap gap-x-4 gap-y-2 [&_label]:(flex gap-1 items-center)'],
-    ['nortic-newsletter--terms-wrapper', 'text-xs text-variable-sub mt-1'],
+    ['nortic-newsletter--terms-wrapper', 'text-sm text-variable-sub mt-1'],
+    ['nortic-newsletter--link', 'text-nortic underline'],
   ],
 
   theme: {
