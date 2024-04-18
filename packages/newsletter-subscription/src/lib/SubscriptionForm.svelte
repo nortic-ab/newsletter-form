@@ -51,7 +51,7 @@
     firstName: '',
     lastName: '',
     phoneNumber: '',
-    tags: {},
+    supportedDynamicValues: {},
   }
 
   export function resetFormState() {
@@ -59,16 +59,16 @@
     formState.firstName = ''
     formState.lastName = ''
     formState.phoneNumber = ''
-    formState.tags = {}
+    formState.supportedDynamicValues = {}
   }
 
   // A reactive statement to ensure formState.tags updates reactively
-  $: formState.tags = tags.reduce((acc, tag) => {
+  $: formState.supportedDynamicValues = tags.reduce((acc, tag) => {
     // Use the current value if it exists to avoid resetting the checkbox state
-    acc[tag] = { type: 'boolean', value: acc[tag]?.value || false }
+    acc[tag] = { type: 'Boolean', value: acc[tag]?.value || false }
 
     return acc
-  }, formState.tags)
+  }, formState.supportedDynamicValues)
 
   function validateEmail(): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -95,7 +95,7 @@
       firstName: formState.firstName || undefined,
       lastName: formState.lastName || undefined,
       phoneNumber: formState.phoneNumber || undefined,
-      tags: formState.tags,
+      supportedDynamicValues: formState.supportedDynamicValues,
     })
   }
 </script>
@@ -158,7 +158,7 @@
         {#each tags as tag}
           <div>
             <label>
-              <input type='checkbox' bind:checked={formState.tags[tag].value} bind:value={tag} />
+              <input type='checkbox' bind:checked={formState.supportedDynamicValues[tag].value} bind:value={tag} />
               <span>{tagsCaptions[tag] || tag}</span>
             </label>
           </div>

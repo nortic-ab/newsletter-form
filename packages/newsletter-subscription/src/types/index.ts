@@ -1,5 +1,5 @@
 export interface DynamicValue {
-  type: 'boolean'
+  type: 'Boolean'
   value: boolean
 }
 
@@ -21,7 +21,7 @@ export interface FormState {
   firstName?: string
   lastName?: string
   phoneNumber?: string
-  tags: Record<string, DynamicValue>
+  supportedDynamicValues: Record<string, DynamicValue>
 }
 
 export interface SubmitOptions {
