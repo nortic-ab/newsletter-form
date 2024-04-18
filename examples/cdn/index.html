@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.css"
+    />
+  </head>
+  <body>
+    <div id="nortic-newsletter-form" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@nortic/newsletter-form@latest/dist/index.global.js"></script>
+
+    <script>
+    new NorticNewsletter.EmbeddedSubscriptionForm('#nortic-newsletter-form', {
+      "newsletterId": "",
+      "demo": true,
+      "showPhoneInput": true,
+      "tags": [
+        "A",
+        "B",
+        "C"
+      ],
+      "texts": {
+        "acceptTermsLabel": "Genom att klicka på knappen godkänner du våra [villkor](https://example.com/terms)",
+        "description": "Test",
+        "submit": "Test",
+        "successDescription": "Tackar",
+        "successTitle": "Testar",
+        "title": "Test",
+        "tagsTitle": "Test",
+        "emailInput": {
+          "hint": "test",
+          "label": "Test",
+          "placeholder": "Test",
+          "validationError": "test"
+        },
+        "firstNameInput": {
+          "hint": "Test",
+          "label": "Test",
+          "placeholder": "Test"
+        },
+        "lastNameInput": {
+          "hint": "Test",
+          "label": "Test",
+          "placeholder": "Test"
+        },
+        "phoneInput": {
+          "hint": "Test",
+          "label": "Test",
+          "placeholder": "Test"
+        }
+      }
+    });
+    </script>
+  </body>
+</html>

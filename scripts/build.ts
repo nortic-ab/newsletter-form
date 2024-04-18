@@ -5,8 +5,8 @@ import consola from 'consola'
 import { norticNewsletterSubscriptionJSRoot, repoRoot } from './paths'
 
 execSync('pnpm run clean', { stdio: 'inherit', cwd: repoRoot })
-execSync('pnpm -r --filter=./packages/newsletter-subscription-js build', { stdio: 'inherit', cwd: repoRoot })
-execSync('pnpm -r --filter=!./packages/newsletter-subscription-js --filter=./packages/* build', { stdio: 'inherit', cwd: repoRoot })
+execSync('pnpm -r --filter=./packages/newsletter-subscription build', { stdio: 'inherit', cwd: repoRoot })
+execSync('pnpm -r --filter=!./packages/newsletter-subscription --filter=./packages/* build', { stdio: 'inherit', cwd: repoRoot })
 
 // copy README.md file to dist dir for npm publish
 copyFileSync(

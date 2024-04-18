@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { UnwrapRef } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import type { NorticNewsletterOptions } from '..'
 import { useNewsletterSubscriptionForm } from '..'
 
@@ -11,8 +11,10 @@ export type SubmissionFormOptions = Omit<ComponentOptions, 'newsletterId'>
 const props = withDefaults(defineProps<{
   newsletterId: string
   options?: SubmissionFormOptions
+  showSubscribeCompleted?: boolean
 }>(), {
   options: () => ({}),
+  showSubscribeCompleted: false,
 })
 const emit = defineEmits<{
   success: []
@@ -70,7 +72,12 @@ const {
   destroy,
   reset,
   update,
+  _toggleSubscribeCompleted,
 } = useNewsletterSubscriptionForm(formEl, resolvedOptions)
+
+watch(() => props.showSubscribeCompleted, (val) => {
+  _toggleSubscribeCompleted(val)
+}, { immediate: true })
 </script>
 
 <template>
