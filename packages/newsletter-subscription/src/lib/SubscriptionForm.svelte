@@ -5,7 +5,7 @@
   import FormInput from './FormInput.svelte'
 
   const dispatch = createEventDispatcher<{
-    submit: FormState
+    submit: FormState<'Boolean'>
   }>()
 
   export let formElement: HTMLFormElement
@@ -46,7 +46,7 @@
   $: acceptTermsLabel = options?.texts?.acceptTermsLabel || DEFAULT_OPTIONS.texts.acceptTermsLabel
   $: acceptTermsLabelResolved = `<p class="nortic-newsletter--terms-wrapper">${acceptTermsLabel?.replace(/\[(.*?)\]\((.*?)\)/g, '<a class="nortic-newsletter--link" href="$2" target="_blank" rel="noopener noreferrer">$1</a>')}</p>`
 
-  const formState: Required<FormState> = {
+  const formState: Required<FormState<'Boolean'>> = {
     email: '',
     firstName: '',
     lastName: '',
