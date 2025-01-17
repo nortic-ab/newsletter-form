@@ -1,7 +1,14 @@
-export interface DynamicValue {
-  type: 'Boolean'
-  value: boolean
+interface DynamicValueMap {
+  Boolean: boolean
+  String: string
 }
+
+export type DynamicValue<K extends keyof DynamicValueMap = keyof DynamicValueMap> = {
+  [Key in keyof DynamicValueMap]: {
+    type: Key
+    value: DynamicValueMap[Key]
+  }
+}[K]
 
 export interface FetchResult<T> {
   data: T
@@ -16,12 +23,12 @@ export type SubscribeResult = FetchResult<{
   newsletterId: string
 }>
 
-export interface FormState {
+export interface FormState<K extends keyof DynamicValueMap = keyof DynamicValueMap> {
   email: string
   firstName?: string
   lastName?: string
   phoneNumber?: string
-  supportedDynamicValues: Record<string, DynamicValue>
+  supportedDynamicValues: Record<string, DynamicValue<K>>
 }
 
 export interface SubmitOptions {

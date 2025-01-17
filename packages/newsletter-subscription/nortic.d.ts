@@ -1,4 +1,4 @@
-import type { EmbeddedSubscriptionForm } from './src/main'
+import type { EmbeddedSubscriptionForm } from './src/index'
 
 declare global {
   interface Window {
