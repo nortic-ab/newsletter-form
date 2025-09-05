@@ -1,8 +1,9 @@
 {
   "name": "@nortic/newsletter-form",
   "type": "module",
-  "version": "1.2.2",
+  "version": "1.2.4",
   "private": true,
+  "packageManager": "pnpm@9.15.4",
   "description": "",
   "license": "ISC",
   "homepage": "https://b2b.nortic.se",

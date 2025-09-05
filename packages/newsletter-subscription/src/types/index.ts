@@ -69,6 +69,7 @@ export interface NorticNewsletterOptions extends SubmitOptionsBase {
   showLastNameInput?: boolean
   showPhoneInput?: boolean
   hideSubmissionError?: boolean
+  hideAffiliation?: boolean
   tags?: Array<string>
   texts?: {
     title?: string

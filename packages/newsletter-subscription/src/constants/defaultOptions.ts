@@ -12,6 +12,7 @@ export const DEFAULT_OPTIONS: Omit<DeepRequired<NorticNewsletterOptions>, 'newsl
   showLastNameInput: true,
   showPhoneInput: false,
   tags: [],
+  hideAffiliation: false,
   texts: {
     title: 'Prenumerera på vårt nyhetsbrev',
     description: 'Prenumerera på vårt nyhetsbrev för att få information om kommande evenemang och erbjudanden.',
