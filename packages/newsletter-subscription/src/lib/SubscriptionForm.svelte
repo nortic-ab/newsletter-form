@@ -180,4 +180,8 @@
       <p>{options.texts?.genericErrorMessage || DEFAULT_OPTIONS.texts.genericErrorMessage}</p>
     </div>
   {/if}
+
+  {#if !options.hideAffiliation}
+    <p class='nortic-newsletter--affiliation'>Powered by <a href='https://nortic.se' target='_blank'><span class='nortic-newsletter--affiliation-logo' role='img' aria-label='Nortic Logo' /></a></p>
+  {/if}
 </form>

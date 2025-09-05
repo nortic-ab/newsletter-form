@@ -71,8 +71,4 @@
   {:else}
     <SubscriptionForm bind:formElement={form} bind:this={subscriptionFormInstance} {options} {formError} {isLoading} on:submit={submitHandler} />
   {/if}
-
-  {#if !options.hideAffiliation}
-    <p class='nortic-newsletter--affiliation'>Powered by <a href='https://nortic.se' target='_blank'><span class='nortic-newsletter--affiliation-logo' /></a></p>
-  {/if}
 </div>
