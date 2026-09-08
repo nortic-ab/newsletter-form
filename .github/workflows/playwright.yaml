@@ -10,18 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: mcr.microsoft.com/playwright:v1.41.1-jammy
-    env:
-      # Keep the store path consistent between actions and container shell steps.
-      npm_config_store_dir: ${{ runner.temp }}/pnpm-store
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v3
       - name: Install pnpm
-        uses: pnpm/action-setup@v5
-      - uses: actions/setup-node@v6
+        uses: pnpm/action-setup@v2
         with:
-          node-version: '24'
+          version: latest
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'lts/*'
+          check-latest: true
           cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         run: pnpm -r install --frozen-lockfile
@@ -29,7 +28,7 @@ jobs:
         run: pnpm test
         env:
           HOME: /root
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
