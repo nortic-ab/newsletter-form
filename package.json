@@ -6,7 +6,7 @@
   "packageManager": "pnpm@9.15.4",
   "description": "",
   "license": "ISC",
-  "homepage": "https://b2b.nortic.se",
+  "homepage": "https://nortic.se",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nortic-ab/newsletter-form.git"
