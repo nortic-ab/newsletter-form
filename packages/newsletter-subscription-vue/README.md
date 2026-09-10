@@ -1,5 +1,5 @@
 <p align="center">
-  <a target="_blank" href="https://b2b.nortic.se">
+  <a target="_blank" href="https://nortic.se">
   <img alt="nortic logo" src="https://github.com/nortic-ab/newsletter-form/assets/18286634/c2663966-535d-46f9-8a85-a3d4e4300b05" width="400">
 
   </a>

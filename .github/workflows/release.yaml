@@ -9,25 +9,25 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: latest
+        uses: pnpm/action-setup@v6
+        
 
-      - uses: actions/setup-node@v3
+      - name: Setup Node
+        uses: actions/setup-node@v7
         with:
           node-version: 'lts/*'
           check-latest: true
           cache: pnpm
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npx changelogithub # or changelogithub@0.12 if ensure the stable result
+      - run: npx changelogithub
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract tag name
         id: get_version
@@ -51,6 +51,6 @@ jobs:
       - name: Publish to NPM
         run: pnpm -r publish --access public --no-git-checks --tag ${{ env.NPM_TAG }}
         env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # TODO: Notify on slack
