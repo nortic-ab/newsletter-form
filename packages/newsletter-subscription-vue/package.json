@@ -4,7 +4,7 @@
   "version": "1.2.4",
   "description": "Nortic newsletter subscription form for Vue",
   "license": "MIT",
-  "homepage": "https://b2b.nortic.se",
+  "homepage": "https://nortic.se",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nortic-ab/newsletter-form.git",

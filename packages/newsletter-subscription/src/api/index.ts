@@ -14,7 +14,7 @@ export class NewsletterSubscriptionError extends Error {
 
 export async function submitSubscription(newsletterId: string, payload: FormState, options?: SubmitOptions) {
   const resolvedOptions: Required<SubmitOptions> = {
-    baseUrl: 'https://insight-api.nortic.se',
+    baseUrl: 'https://services.nortic.se/api/insight',
     ...options,
   }
 
