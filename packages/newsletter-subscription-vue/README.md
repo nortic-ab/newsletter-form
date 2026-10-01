@@ -33,10 +33,10 @@ import '@nortic/newsletter-form-vue/dist/style.css'
 #### Props
 |Property              |Type                    |Required |
 |----------------------|------------------------|---------|
-|**newsletterId**      |`string, number`        |Yes      |
+|**newsletterId**      |`string` (UUID)         |Yes      |
 |**options**           |`object`                |No       |
 
-> **_NOTE:_**  For more information about the available options, please refer to the Nortic Newsletter Form [readme](https://github.com/nortic-ab/newsletter-form/blob/main/packages/newsletter-subscription-js/README.md).
+> **_NOTE:_**  For more information about the available options, please refer to the Nortic Newsletter Form [readme](https://github.com/nortic-ab/newsletter-form/blob/main/packages/newsletter-subscription/README.md).
 
 #### Events
 |Event                 |Argument              |
@@ -46,6 +46,8 @@ import '@nortic/newsletter-form-vue/dist/style.css'
 |**destroyed**         |N/A                   |
 |**reset**             |N/A                   |
 |**updated**           |N/A                   |
+
+> **_NOTE:_**  If the email address is already subscribed, the form shows the success view and emits **success**, not **error**.
 
 ### Composable
 ```vue
@@ -65,3 +67,20 @@ useNewsletterSubscriptionForm(norticSubmissionForm, {
   <div ref="norticSubmissionForm" />
 </template>
 ```
+
+### Custom form
+`submitSubscription` and the error helpers are re-exported from the core package, so you can build your own form:
+```ts
+import { isAlreadySubscribedError, submitSubscription } from '@nortic/newsletter-form-vue'
+
+try {
+  await submitSubscription('<your-newsletter-id>', { email })
+}
+catch (error) {
+  if (isAlreadySubscribedError(error)) {
+    /* The email is already subscribed, treat it as a success */
+  }
+}
+```
+
+For all error codes, see [Error handling](https://github.com/nortic-ab/newsletter-form/blob/main/packages/newsletter-subscription/README.md#error-handling) in the core package readme.

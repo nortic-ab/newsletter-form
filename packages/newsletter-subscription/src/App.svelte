@@ -3,7 +3,7 @@
   import type { NorticNewsletterOptions } from './types'
   import SubscriptionForm from './lib/SubscriptionForm.svelte'
   import ThankYou from './lib/ThankYou.svelte'
-  import { NewsletterSubscriptionError, submitSubscription } from './api'
+  import { type NewsletterSubscriptionError, isAlreadySubscribedError, submitSubscription } from './api'
 
   export let options: NorticNewsletterOptions
 
@@ -47,7 +47,7 @@
     submit(options.newsletterId, event.detail, options.requestOptions)
       .then(_onSuccessfulSubmit)
       .catch((error: Error | NewsletterSubscriptionError) => {
-        if (error instanceof NewsletterSubscriptionError && error.errorCode === 8) {
+        if (isAlreadySubscribedError(error)) {
           _onSuccessfulSubmit()
         }
         else {

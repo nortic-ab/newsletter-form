@@ -4,7 +4,7 @@ import { SubmissionForm } from './components'
 
 export type { SubmissionFormOptions } from './components'
 
-export { EmbeddedSubscriptionForm, submitSubscription } from '@nortic/newsletter-form'
+export { EmbeddedSubscriptionForm, isAlreadySubscribedError, NewsletterErrorCode, NewsletterSubscriptionError, submitSubscription } from '@nortic/newsletter-form'
 
 export * from './composables'
 export { SubmissionForm, SubmitOptions, SubmitOptionsBase, NorticNewsletterOptions }
