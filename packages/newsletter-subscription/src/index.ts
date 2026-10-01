@@ -3,7 +3,7 @@ import App from './App.svelte'
 import type * as Types from './types'
 import { mergeOptionsDeep } from './utils/mergeOptions'
 
-export { NewsletterSubscriptionError, submitSubscription } from './api'
+export { isAlreadySubscribedError, NewsletterErrorCode, NewsletterSubscriptionError, submitSubscription } from './api'
 
 export type NorticNewsletterOptions = Types.NorticNewsletterOptions
 export type SubmitOptions = Types.SubmitOptions

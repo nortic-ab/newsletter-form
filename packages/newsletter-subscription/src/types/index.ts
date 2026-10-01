@@ -28,7 +28,7 @@ export interface FormState<K extends keyof DynamicValueMap = keyof DynamicValueM
   firstName?: string
   lastName?: string
   phoneNumber?: string
-  supportedDynamicValues: Record<string, DynamicValue<K>>
+  supportedDynamicValues?: Record<string, DynamicValue<K>>
 }
 
 export interface SubmitOptions {
