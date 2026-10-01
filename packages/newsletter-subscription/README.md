@@ -147,7 +147,7 @@ const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
 **onDestroy:** Called when the form is destroyed
 
 ## Error handling
-`submitSubscription(newsletterId, payload, options?)` returns the created subscriber on success. If the subscription fails, it throws a `NewsletterSubscriptionError` with these properties:
+`submitSubscription(newsletterId, payload, options?)` returns the created subscriber on success. If the request is invalid or the API responds with an error, it throws a `NewsletterSubscriptionError` with these properties:
 
 | Property      | Description                                                                                 |
 |---------------|---------------------------------------------------------------------------------------------|
@@ -162,7 +162,9 @@ const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
 | **INVALID_REQUEST**      | 400 / 0  | The request is malformed, e.g. the email is missing or the newsletter id is not a valid UUID |
 | **ORIGIN_NOT_ALLOWED**   | 403      | Your site's domain is not in the newsletter's list of allowed domains in Nortic Insight      |
 | **NEWSLETTER_NOT_FOUND** | 404      | No newsletter exists with the given id                                                        |
-| **UNKNOWN**              | other    | Any other error, e.g. a server error                                                          |
+| **UNKNOWN**              | other    | Any other error response, e.g. a server error                                                 |
+
+> **_NOTE:_**  If the request never gets a response, e.g. when the user is offline or the request is blocked by CORS, the browser's own error (usually a `TypeError`) is thrown instead. It has no `code`, `status` or `errorCode`, so check `error instanceof NewsletterSubscriptionError` before relying on them.
 
 Use `isAlreadySubscribedError(error)` to check whether the email is already subscribed:
 ```js
