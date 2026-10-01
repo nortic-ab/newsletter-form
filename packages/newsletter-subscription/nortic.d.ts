@@ -5,6 +5,7 @@ declare global {
     EmbeddedSubscriptionForm: typeof EmbeddedSubscriptionForm
     norticFormInstance: EmbeddedSubscriptionForm
     usingPlaywright?: boolean
+    norticFormErrors: { name: string, code?: string, status?: number, message: string }[]
   }
 }
 
