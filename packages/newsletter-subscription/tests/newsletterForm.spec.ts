@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { type Page, expect, test } from '@playwright/test'
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/')
@@ -139,5 +139,72 @@ test.describe('Subscription form', () => {
     await expect(page.getByLabel('A', { exact: true })).toHaveValue('a')
     await expect(page.getByLabel('B', { exact: true })).toHaveValue('b')
     await expect(page.getByLabel('c', { exact: true })).toHaveValue('c')
+  })
+})
+
+test.describe('Subscription request', () => {
+  const NEWSLETTER_ID = '3f2b8a1c-1d2e-4f5a-9b6c-7d8e9f0a1b2c'
+
+  async function mockSubscribe(page: Page, status: number, body: Record<string, unknown>) {
+    await page.route('**/public/newsletter/*/subscribe', route => route.fulfill({
+      status,
+      contentType: 'application/json',
+      body: JSON.stringify(body),
+    }))
+  }
+
+  async function submitForm(page: Page) {
+    await page.getByPlaceholder('john.doe@example.com').fill('john.doe@example.com')
+    await page.getByRole('button', { name: 'Prenumerera' }).click()
+  }
+
+  test.beforeEach(async ({ page }) => {
+    await page.evaluate((newsletterId) => {
+      window.norticFormErrors = []
+
+      window.norticFormInstance = new window.EmbeddedSubscriptionForm('#newsletter-form', {
+        newsletterId,
+        onError: (error) => {
+          const { name, code, status, message } = error as Error & { code?: string, status?: number }
+          window.norticFormErrors.push({ name, code, status, message })
+        },
+      })
+    }, NEWSLETTER_ID)
+  })
+
+  test('already subscribed email shows success page without calling onError', async ({ page }) => {
+    await mockSubscribe(page, 400, { status: 400, error: 'Entity with email john.doe@example.com already exists', path: '/', errorCode: 8 })
+
+    await submitForm(page)
+
+    await expect(page.getByText('Tack för att du prenumererar!')).toBeVisible()
+    expect(await page.evaluate(() => window.norticFormErrors)).toEqual([])
+  })
+
+  test('failed request shows generic error and calls onError with error details', async ({ page }) => {
+    await mockSubscribe(page, 403, { status: 403, error: 'Forbidden', path: '/', errorCode: -1 })
+
+    await submitForm(page)
+
+    await expect(page.getByText('Något gick fel. Försök igen senare.')).toBeVisible()
+    await expect(page.getByText('Tack för att du prenumererar!')).not.toBeVisible()
+    expect(await page.evaluate(() => window.norticFormErrors)).toEqual([
+      { name: 'NewsletterSubscriptionError', code: 'ORIGIN_NOT_ALLOWED', status: 403, message: 'Forbidden' },
+    ])
+  })
+
+  test('failed request with non-JSON response calls onError with the HTTP status', async ({ page }) => {
+    await page.route('**/public/newsletter/*/subscribe', route => route.fulfill({
+      status: 502,
+      contentType: 'text/html',
+      body: '<html>Bad gateway</html>',
+    }))
+
+    await submitForm(page)
+
+    await expect(page.getByText('Något gick fel. Försök igen senare.')).toBeVisible()
+    expect(await page.evaluate(() => window.norticFormErrors)).toEqual([
+      { name: 'NewsletterSubscriptionError', code: 'UNKNOWN', status: 502, message: 'Subscription failed with status 502' },
+    ])
   })
 })

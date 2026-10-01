@@ -35,13 +35,24 @@ new NorticNewsletter.EmbeddedSubscriptionForm('#newsletter-form', {
 });
 
 /* Or use ajax request if you want to create your own form */
-function submit() {
-  NorticNewsletter.submitSubscription('<email>', {
-    /* These are optional */
-    firstName: '<first-name>',
-    lastName: '<last-name>',
-    phone: '<phone-number>',
-  })
+async function submit() {
+  try {
+    await NorticNewsletter.submitSubscription('<your-newsletter-id-here>', {
+      email: '<email>',
+      /* These are optional */
+      firstName: '<first-name>',
+      lastName: '<last-name>',
+      phoneNumber: '<phone-number>',
+    })
+  }
+  catch (error) {
+    if (NorticNewsletter.isAlreadySubscribedError(error)) {
+      /* The email is already subscribed, treat it as a success */
+    }
+    else {
+      /* Handle the error, see "Error handling" below */
+    }
+  }
 }
 </script>
 ```
@@ -56,7 +67,7 @@ npm i @nortic/newsletter-form
 
 #### Usage
 ```js
-import { EmbeddedSubscriptionForm, submitSubscription } from '@nortic/newsletter-from'
+import { EmbeddedSubscriptionForm, isAlreadySubscribedError, submitSubscription } from '@nortic/newsletter-form'
 import '@nortic/newsletter-form/dist/index.css'
 
 /* Embed our form on your web page */
@@ -65,13 +76,24 @@ const formInstance = new EmbeddedSubscriptionForm('<element-query-selector>', {
 })
 
 /* Or use ajax request if you want to create your own form */
-function submit() {
-  submitSubscription('<email>', {
-    /* These are optional */
-    firstName: '<first-name>',
-    lastName: '<last-name>',
-    phone: '<phone-number>',
-  })
+async function submit() {
+  try {
+    await submitSubscription('<your-newsletter-id-here>', {
+      email: '<email>',
+      /* These are optional */
+      firstName: '<first-name>',
+      lastName: '<last-name>',
+      phoneNumber: '<phone-number>',
+    })
+  }
+  catch (error) {
+    if (isAlreadySubscribedError(error)) {
+      /* The email is already subscribed, treat it as a success */
+    }
+    else {
+      /* Handle the error, see "Error handling" below */
+    }
+  }
 }
 ```
 
@@ -116,13 +138,52 @@ const instance = new EmbeddedSubscriptionForm('<element-query-selector>', {
 
 **onSuccess:** Called on successful subscription request
 
-**onError:** Called if the subscription request fails (the error is available as an argument)
+**onError:** Called if the subscription request fails (the error is available as an argument). It is **not** called when the email is already subscribed, since the form treats that as a successful subscription and shows the success view
 
 **onReset:** Called when the form is reset
 
 **onUpdate:** Called when the form is updated
 
 **onDestroy:** Called when the form is destroyed
+
+## Error handling
+`submitSubscription(newsletterId, payload, options?)` returns the created subscriber on success. If the request is invalid or the API responds with an error, it throws a `NewsletterSubscriptionError` with these properties:
+
+| Property      | Description                                                                                 |
+|---------------|---------------------------------------------------------------------------------------------|
+| **code**      | A readable error code, see the table below. Also exported as `NewsletterErrorCode`          |
+| **status**    | The HTTP status of the response. `0` if the request was rejected before it was sent         |
+| **errorCode** | The numeric error code from the API, `-1` if none was given                                 |
+| **message**   | A description of the error                                                                  |
+
+| `code`                   | `status` | Meaning                                                                                       |
+|--------------------------|----------|-----------------------------------------------------------------------------------------------|
+| **ALREADY_SUBSCRIBED**   | 400      | The email address is already subscribed to the newsletter. Usually best treated as a success |
+| **INVALID_REQUEST**      | 400 / 0  | The request is malformed, e.g. the email is missing or the newsletter id is not a valid UUID |
+| **ORIGIN_NOT_ALLOWED**   | 403      | Your site's domain is not in the newsletter's list of allowed domains in Nortic Insight      |
+| **NEWSLETTER_NOT_FOUND** | 404      | No newsletter exists with the given id                                                        |
+| **UNKNOWN**              | other    | Any other error response, e.g. a server error                                                 |
+
+> **_NOTE:_**  If the request never gets a response, e.g. when the user is offline or the request is blocked by CORS, the browser's own error (usually a `TypeError`) is thrown instead. It has no `code`, `status` or `errorCode`, so check `error instanceof NewsletterSubscriptionError` before relying on them.
+
+Use `isAlreadySubscribedError(error)` to check whether the email is already subscribed:
+```js
+import { NewsletterErrorCode, isAlreadySubscribedError, submitSubscription } from '@nortic/newsletter-form'
+
+try {
+  await submitSubscription(newsletterId, { email })
+}
+catch (error) {
+  if (isAlreadySubscribedError(error))
+    showThankYou()
+  else if (error.code === NewsletterErrorCode.ORIGIN_NOT_ALLOWED)
+    console.error('This domain is not allowed to subscribe to the newsletter')
+  else
+    showError(error.message)
+}
+```
+
+The embedded form (`EmbeddedSubscriptionForm`) handles this for you. It shows the success view when the email is already subscribed, and the generic error message for all other errors.
 
 ## Styling
 There are a few CSS variables that you can modify to customize the look of the form.
@@ -143,23 +204,40 @@ Available CSS Variables and default values:
 ## Type definitions
 ```typescript
 declare class EmbeddedSubscriptionForm {
-    static submit(email: string, options: SubmitOptions): Promise<void>;
-
     constructor(el: string | HTMLElement, options: NorticNewsletterOptions);
 
-    update(options: NorticNewsletterOptions, reset?: boolean): void;
+    update(options: Partial<NorticNewsletterOptions>): void;
     reset(): void;
     destroy(): void;
 }
 
-interface SubmitOptionsBase {
-    newsletterId: number;
+declare function submitSubscription(newsletterId: string, payload: FormState, options?: SubmitOptions): Promise<SubscribeResult>;
+
+declare function isAlreadySubscribedError(error: unknown): error is NewsletterSubscriptionError;
+
+declare class NewsletterSubscriptionError extends Error {
+    code: NewsletterErrorCode;
+    status: number;
+    errorCode: number;
+    readonly isAlreadySubscribed: boolean;
 }
 
-interface SubmitOptions extends SubmitOptionsBase {
+type NewsletterErrorCode = 'ALREADY_SUBSCRIBED' | 'INVALID_REQUEST' | 'ORIGIN_NOT_ALLOWED' | 'NEWSLETTER_NOT_FOUND' | 'UNKNOWN';
+
+interface FormState {
+    email: string;
     firstName?: string;
     lastName?: string;
-    phone?: string;
+    phoneNumber?: string;
+    supportedDynamicValues?: Record<string, { type: 'Boolean', value: boolean } | { type: 'String', value: string }>;
+}
+
+interface SubmitOptions {
+    baseUrl?: string;
+}
+
+interface SubmitOptionsBase {
+    newsletterId: string;
 }
 
 interface InputTexts {
